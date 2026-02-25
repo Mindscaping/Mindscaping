@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mindscaping — Mindful Healing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brown: #543E34;
+      --offwhite: #E8E2E4;
+      --taupe: #7D6B63;
+      --light-taupe: #b8a9a3;
+      --cream: #f5f0ee;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--offwhite);
+      color: var(--brown);
+      overflow-x: hidden;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(232,226,228,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(84,62,52,0.1);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--brown);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-logo span {
+      color: var(--taupe);
+      font-style: italic;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--brown);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 400;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-cta {
+      background: var(--brown);
+      color: var(--offwhite) !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 2rem;
+      opacity: 1 !important;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      padding-top: 80px;
+    }
+
+    .hero-left {
+      background: var(--offwhite);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 5rem 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(125,107,99,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      font-weight: 300;
+      color: var(--brown);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--taupe);
+    }
+
+    .hero-subtitle {
+      margin-top: 1.8rem;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--taupe);
+      max-width: 460px;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-actions {
+      margin-top: 2.8rem;
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    .btn-primary {
+      background: var(--brown);
+      color: var(--offwhite);
+      padding: 0.85rem 2rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.25s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--taupe); transform: translateY(-1px); }
+
+    .btn-secondary {
+      border: 1.5px solid var(--brown);
+      color: var(--brown);
+      padding: 0.85rem 2rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.25s, color 0.25s, transform 0.2s;
+    }
+
+    .btn-secondary:hover { background: var(--brown); color: var(--offwhite); transform: translateY(-1px); }
+
+    .hero-right {
+      background: var(--brown);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(232,226,228,0.05);
+    }
+
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 360px; height: 360px;
+      border-radius: 50%;
+      background: rgba(232,226,228,0.04);
+    }
+
+    .hero-floral {
+      width: 200px;
+      height: 200px;
+      opacity: 0.18;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero-right-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--offwhite);
+    }
+
+    .hero-right-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.4;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .hero-right-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light-taupe);
+    }
+
+    .hero-right-stats {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .stat-item {
+      border-top: 1px solid rgba(232,226,228,0.2);
+      padding-top: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.1em; opacity: 0.6; text-transform: uppercase; }
+    .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; opacity: 0.9; }
+
+    /* ===== SECTION BASE ===== */
+    section { padding: 6rem 0; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+
+    .section-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 1.15;
+    }
+
+    .section-title em { font-style: italic; color: var(--taupe); }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--cream); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 3.5rem;
+    }
+
+    .about-text p {
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: var(--taupe);
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-visual {
+      position: relative;
+      height: 400px;
+    }
+
+    .about-card {
+      background: var(--brown);
+      color: var(--offwhite);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-card::before {
+      content: '❧';
+      position: absolute;
+      top: 2rem; right: 2rem;
+      font-size: 4rem;
+      opacity: 0.12;
+    }
+
+    .about-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+
+    .about-card-text { font-size: 0.82rem; line-height: 1.7; opacity: 0.7; }
+
+    /* ===== VALUES ===== */
+    #values { background: var(--offwhite); }
+
+    .values-intro {
+      max-width: 560px;
+      margin-bottom: 3.5rem;
+    }
+
+    .values-intro p {
+      margin-top: 1.2rem;
+      font-size: 0.98rem;
+      line-height: 1.8;
+      color: var(--taupe);
+      font-weight: 300;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5px;
+      background: rgba(84,62,52,0.12);
+      border: 1.5px solid rgba(84,62,52,0.12);
+      border-radius: 1.5rem;
+      overflow: hidden;
+    }
+
+    .value-item {
+      background: var(--offwhite);
+      padding: 2.5rem;
+      transition: background 0.3s;
+    }
+
+    .value-item:hover { background: var(--cream); }
+
+    .value-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: rgba(84,62,52,0.15);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .value-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--brown);
+      margin-bottom: 0.7rem;
+    }
+
+    .value-text {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--taupe);
+      font-weight: 300;
+    }
+
+    /* ===== TEAM ===== */
+    #team { background: var(--cream); }
+
+    .team-intro { max-width: 500px; margin-bottom: 3.5rem; }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .team-card {
+      background: var(--offwhite);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .team-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(84,62,52,0.12);
+    }
+
+    /* ===== TEAM PHOTO PLACEHOLDER ===== */
+    .team-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, rgba(84,62,52,0.15) 0%, rgba(125,107,99,0.25) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /*
+     * ============================================================
+     * TO ADD A REAL PHOTO:
+     * Replace the .team-photo div background with an <img> tag.
+     *
+     * Example:
+     *   <div class="team-photo">
+     *     <img src="images/anoushka.jpg" alt="Ms. Anoushka Gupta"
+     *          style="width:100%;height:100%;object-fit:cover;">
+     *   </div>
+     *
+     * Store photos in an /images/ folder next to this index.html file.
+     * Recommended size: 600×800px or similar portrait ratio.
+     * ============================================================
+     */
+
+    .team-photo-icon {
+      font-size: 3.5rem;
+      opacity: 0.3;
+      user-select: none;
+    }
+
+    .team-photo-label {
+      position: absolute;
+      bottom: 0.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brown);
+      opacity: 0.5;
+      white-space: nowrap;
+    }
+
+    .team-info { padding: 1.4rem 1.2rem; }
+
+    .team-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--brown);
+      margin-bottom: 0.4rem;
+    }
+
+    .team-role {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-bottom: 0.8rem;
+    }
+
+    .team-desc {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--taupe);
+      font-weight: 300;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    #testimonials { background: var(--brown); }
+
+    .testimonials-header .section-title { color: var(--offwhite); }
+    .testimonials-header .section-tag { color: var(--light-taupe); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .testimonial-card {
+      background: rgba(232,226,228,0.08);
+      border: 1px solid rgba(232,226,228,0.15);
+      border-radius: 1.2rem;
+      padding: 2rem;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .testimonial-card:hover { background: rgba(232,226,228,0.12); }
+
+    .testimonial-quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--offwhite);
+      opacity: 0.12;
+      position: absolute;
+      top: 1rem; left: 1.5rem;
+    }
+
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--offwhite);
+      opacity: 0.85;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--cream); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3.5rem;
+    }
+
+    .contact-left p {
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: var(--taupe);
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-detail { font-size: 0.9rem; color: var(--brown); }
+    .contact-detail strong { display: block; font-weight: 500; margin-bottom: 0.1rem; }
+    .contact-detail span { color: var(--taupe); font-weight: 300; font-size: 0.85rem; }
+
+    .contact-right {
+      background: var(--brown);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      color: var(--offwhite);
+    }
+
+    .contact-right-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-right-sub {
+      font-size: 0.82rem;
+      opacity: 0.6;
+      letter-spacing: 0.08em;
+      margin-bottom: 2rem;
+    }
+
+    .contact-right a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      background: var(--offwhite);
+      color: var(--brown);
+      padding: 0.85rem 2rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .contact-right a:hover { opacity: 0.85; }
+
+    .contact-note {
+      margin-top: 1.5rem;
+      font-size: 0.78rem;
+      opacity: 0.5;
+      line-height: 1.6;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--brown);
+      color: var(--offwhite);
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(232,226,228,0.1);
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+
+    .footer-logo span { font-style: italic; color: var(--light-taupe); }
+
+    .footer-text { font-size: 0.78rem; opacity: 0.4; letter-spacing: 0.05em; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { min-height: 340px; }
+      .hero-left { padding: 4rem 2rem 3rem; }
+
+      .about-grid,
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .values-grid { grid-template-columns: 1fr; }
+
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .process-grid { grid-template-columns: 1fr !important; }
+
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      .container { padding: 0 1.5rem; }
+      footer { flex-direction: column; gap: 0.6rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Mind<span>scaping</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#values">Our Values</a></li>
+    <li><a href="#process">Our Process</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#contact" class="nav-cta">Reach Out</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Mindful Healing · Accessible Care</p>
+    <h1 class="hero-title">Healing that <em>begins</em><br>with you.</h1>
+    <p class="hero-subtitle">Affordable, high-quality psychological support for individuals from all walks of life — grounded in empathy, evidence, and authenticity.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Begin Your Journey</a>
+      <a href="#about" class="btn-secondary">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <!-- Decorative floral SVG -->
+    <svg class="hero-floral" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" stroke="#E8E2E4" stroke-width="1"/>
+      <circle cx="100" cy="100" r="60" stroke="#E8E2E4" stroke-width="1" stroke-dasharray="4 6"/>
+      <path d="M100 10 Q120 55 100 100 Q80 55 100 10Z" fill="#E8E2E4" opacity="0.4"/>
+      <path d="M100 190 Q120 145 100 100 Q80 145 100 190Z" fill="#E8E2E4" opacity="0.4"/>
+      <path d="M10 100 Q55 120 100 100 Q55 80 10 100Z" fill="#E8E2E4" opacity="0.4"/>
+      <path d="M190 100 Q145 120 100 100 Q145 80 190 100Z" fill="#E8E2E4" opacity="0.4"/>
+      <path d="M28 28 Q64 64 100 100 Q64 64 28 28Z" stroke="#E8E2E4" stroke-width="1" opacity="0.5"/>
+      <circle cx="100" cy="100" r="10" fill="#E8E2E4" opacity="0.3"/>
+    </svg>
+
+    <div class="hero-right-content">
+      <p class="hero-right-quote">"Mental health is not a destination, but a process."</p>
+      <p class="hero-right-label">Mindscaping · Mumbai</p>
+
+      <div class="hero-right-stats">
+        <div class="stat-item">
+          <span class="stat-label">Specialisation</span>
+          <span class="stat-value">CBT · DBT · Trauma Care</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Spaces</span>
+          <span class="stat-value">Individual · Corporate · Educational Institutes</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Approach</span>
+          <span class="stat-value">Evidence-Based · Client-Centered · Affirming</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-tag reveal">Home / About Us</p>
+    <h2 class="section-title reveal">Making therapy <em>accessible</em><br>for everyone.</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Mindscaping is a mental health initiative dedicated to making therapy accessible to a wider audience. Our goal is to provide high-quality, affordable psychological support to individuals from all walks of life.</p>
+        <p>We are driven by a client-centered approach, prioritizing accessibility, empathy, and holistic well-being. We value inclusivity, continuous learning, and personalized care, ensuring that mental health support is tailored to each individual's unique needs.</p>
+        <p>Our team excels in patient assessments, diagnosis, and treatment for a wide range of concerns, including stress, anxiety, depression, trauma, and relationship issues. With a strong foundation in evidence-based practices, we are dedicated to helping clients achieve emotional resilience.</p>
+        <p>Beyond individual care, Mindscaping is committed to fostering mental wellness at a systemic level — building a sustainable mental health ecosystem for educational institutes, colleges, and corporate environments.</p>
+      </div>
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.5;margin-bottom:1rem;">Our Mission</p>
+          <p class="about-card-title">Building an Ecosystem for Growth</p>
+          <p class="about-card-text">We aim to support and build a sustainable mental health ecosystem for educational institutes, colleges, and corporate environments — ensuring that professional and educational spaces become sanctuaries for emotional resilience and collective well-being.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div class="container">
+    <div class="values-intro">
+      <p class="section-tag reveal">Our Values & Approach</p>
+      <h2 class="section-title reveal">What <em>guides</em> us.</h2>
+      <p class="reveal" style="margin-top:1.2rem;font-size:0.98rem;line-height:1.8;color:var(--taupe);font-weight:300;">At Mindscaping, we believe that mental health is not a standalone experience but a deeply integrated part of a person's entire psychological and social world.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-item reveal">
+        <p class="value-num">01</p>
+        <h3 class="value-title">Evidence-Based Clinical Care</h3>
+        <p class="value-text">We rely on proven, scientifically-backed therapeutic modalities such as Cognitive Behavioral Therapy (CBT) and Dialectical Behavior Therapy (DBT). Every treatment plan is grounded in clinical assessments to ensure our interventions are effective, structured, and goal-oriented.</p>
+      </div>
+      <div class="value-item reveal">
+        <p class="value-num">02</p>
+        <h3 class="value-title">Holistic Psychological Integration</h3>
+        <p class="value-text">While our focus is psychological, we view the individual as a whole. We look at the interplay between a client's emotional state, cognitive patterns, and their environment. We don't just treat symptoms; we work to understand the underlying narratives and social contexts.</p>
+      </div>
+      <div class="value-item reveal">
+        <p class="value-num">03</p>
+        <h3 class="value-title">Ecosystemic Growth</h3>
+        <p class="value-text">We believe that healing happens best in supportive environments. Our mission extends beyond the therapy room to building and sustaining mental health ecosystems within educational institutes, colleges, and corporate organizations — fostering resilience at the institutional level.</p>
+      </div>
+      <div class="value-item reveal">
+        <p class="value-num">04</p>
+        <h3 class="value-title">Inclusive & Affirming Spaces</h3>
+        <p class="value-text">Our values are rooted in safety, authenticity, and clinical rigour. We are dedicated to providing evidence-based, client-centered care that is neurodivergent and queer-affirming — ensuring that individuals from all walks of life feel seen, respected, and supported in their unique identities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" style="background: var(--brown);">
+  <div class="container">
+    <p class="section-tag reveal" style="color: var(--light-taupe);">How It Works</p>
+    <h2 class="section-title reveal" style="color: var(--offwhite);">Your journey, <em style="color:var(--light-taupe);">step by step.</em></h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3.5rem;" class="process-grid">
+
+      <div class="reveal" style="position:relative;padding:2.5rem 2rem 2rem;border:1px solid rgba(232,226,228,0.15);border-radius:1.5rem;background:rgba(232,226,228,0.05);">
+        <div style="font-family:Cormorant Garamond,serif;font-size:4rem;font-weight:300;color:rgba(232,226,228,0.12);line-height:1;position:absolute;top:1.2rem;right:1.5rem;">01</div>
+        <div style="width:44px;height:44px;background:rgba(232,226,228,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.4rem;">📋</div>
+        <h3 style="font-family:Cormorant Garamond,serif;font-size:1.3rem;font-weight:500;color:var(--offwhite);margin-bottom:0.7rem;">Consent <!-- TEAM -->amp; Intake</h3>
+        <p style="font-size:0.88rem;line-height:1.75;color:var(--light-taupe);font-weight:300;">Once you reach out, a consent form is sent directly to your email. This helps us understand your needs, ensures transparency, and establishes a foundation of trust before your first session.</p>
+      </div>
+
+      <div class="reveal" style="position:relative;padding:2.5rem 2rem 2rem;border:1px solid rgba(232,226,228,0.15);border-radius:1.5rem;background:rgba(232,226,228,0.05);">
+        <div style="font-family:Cormorant Garamond,serif;font-size:4rem;font-weight:300;color:rgba(232,226,228,0.12);line-height:1;position:absolute;top:1.2rem;right:1.5rem;">02</div>
+        <div style="width:44px;height:44px;background:rgba(232,226,228,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.4rem;">✅</div>
+        <h3 style="font-family:Cormorant Garamond,serif;font-size:1.3rem;font-weight:500;color:var(--offwhite);margin-bottom:0.7rem;">Payment Confirmation</h3>
+        <p style="font-size:0.88rem;line-height:1.75;color:var(--light-taupe);font-weight:300;">After reviewing and returning your consent form, you will complete a simple payment to confirm your booking. This secures your slot and allows us to prepare for your session in advance.</p>
+      </div>
+
+      <div class="reveal" style="position:relative;padding:2.5rem 2rem 2rem;border:1px solid rgba(232,226,228,0.15);border-radius:1.5rem;background:rgba(232,226,228,0.05);">
+        <div style="font-family:Cormorant Garamond,serif;font-size:4rem;font-weight:300;color:rgba(232,226,228,0.12);line-height:1;position:absolute;top:1.2rem;right:1.5rem;">03</div>
+        <div style="width:44px;height:44px;background:rgba(232,226,228,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.4rem;">🌿</div>
+        <h3 style="font-family:Cormorant Garamond,serif;font-size:1.3rem;font-weight:500;color:var(--offwhite);margin-bottom:0.7rem;">Your Session</h3>
+        <p style="font-size:0.88rem;line-height:1.75;color:var(--light-taupe);font-weight:300;">You are all set. Your session is scheduled with your counselor at a time that works for you — a dedicated, confidential space where your healing journey truly begins.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="team-intro">
+      <p class="section-tag reveal">The Mindscaping Team</p>
+      <h2 class="section-title reveal">Faces behind <em>your</em> care.</h2>
+    </div>
+    <div class="team-grid">
+
+      <!-- Anoushka -->
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <!--
+            ADD PHOTO HERE:
+            Replace this comment block with:
+            <img src="images/anoushka-gupta.jpg" alt="Ms. Anoushka Gupta"
+                 style="width:100%;height:100%;object-fit:cover;display:block;">
+          -->
+          <span class="team-photo-icon">🌿</span>
+          <span class="team-photo-label">Add photo · anoushka-gupta.jpg</span>
+        </div>
+        <div class="team-info">
+          <p class="team-name">Ms. Anoushka Gupta</p>
+          <p class="team-role">Founder & Therapist</p>
+          <p class="team-desc">Expert in CBT, Art & Play therapy. A neurodivergent and queer affirming practitioner creating inclusive healing spaces rooted in authenticity and safety.</p>
+        </div>
+      </div>
+
+      <!-- Yashaswini -->
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <!--
+            ADD PHOTO HERE:
+            Replace this comment block with:
+            <img src="images/yashaswini-bansal.jpg" alt="Mrs. Yashaswini Bansal"
+                 style="width:100%;height:100%;object-fit:cover;display:block;">
+          -->
+          <span class="team-photo-icon">🌿</span>
+          <span class="team-photo-label">Add photo · yashaswini-bansal.jpg</span>
+        </div>
+        <div class="team-info">
+          <p class="team-name">Mrs. Yashaswini Bansal</p>
+          <p class="team-role">RCI Licensed Therapist</p>
+          <p class="team-desc">Specialising in CBT and DBT with a structured yet empathetic approach. Leads thorough clinical assessments for each client's mental health journey.</p>
+        </div>
+      </div>
+
+      <!-- Pavithra -->
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <!--
+            ADD PHOTO HERE:
+            Replace this comment block with:
+            <img src="images/pavithra-chinnaiyan.jpg" alt="Ms. Pavithra Chinnaiyan"
+                 style="width:100%;height:100%;object-fit:cover;display:block;">
+          -->
+          <span class="team-photo-icon">🌿</span>
+          <span class="team-photo-label">Add photo · pavithra-chinnaiyan.jpg</span>
+        </div>
+        <div class="team-info">
+          <p class="team-name">Ms. Pavithra Chinnaiyan</p>
+          <p class="team-role">RCI Licensed Therapist</p>
+          <p class="team-desc">Specialised in trauma-informed care, leading clinical assessments with nuance and compassion. Ensures every journey is grounded in professional expertise.</p>
+        </div>
+      </div>
+
+      <!-- Alisha -->
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <!--
+            ADD PHOTO HERE:
+            Replace this comment block with:
+            <img src="images/alisha-sansare.jpg" alt="Ms. Alisha Sansare"
+                 style="width:100%;height:100%;object-fit:cover;display:block;">
+          -->
+          <span class="team-photo-icon">🌿</span>
+          <span class="team-photo-label">Add photo · alisha-sansare.jpg</span>
+        </div>
+        <div class="team-info">
+          <p class="team-name">Ms. Alisha Sansare</p>
+          <p class="team-role">Therapist, MSc Psychology</p>
+          <p class="team-desc">Specialising in trauma-informed care and grief counseling. A cornerstone of the therapeutic team, providing a safe space for clients to heal and grow.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testimonials-header">
+      <p class="section-tag reveal">Client Stories</p>
+      <h2 class="section-title reveal">Voices of <em>healing.</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text">Working with Mindscaping has been an absolute pleasure due to the approachability and kindness of the therapist. They are non-judgemental and consistently address my goals and needs in therapy.</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text">The personalized approach at Mindscaping has made all the difference in my therapy journey. The therapist provided practical tools and insights that helped me navigate my challenges effectively.</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text">We were incredibly pleased with the outcome of our recent mental wellbeing session for employees. The speaker's expertise and engaging presentation created a valuable learning experience for our team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-tag reveal">Contact Us</p>
+    <h2 class="section-title reveal">Our doors are <em>open.</em></h2>
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <p>In case of queries, don't hesitate to reach out. We are here to support your mental health journey in a comfortable and welcoming environment.</p>
+        <div class="contact-item">
+          <div class="contact-icon">💬</div>
+          <div class="contact-detail">
+            <strong>WhatsApp</strong>
+            <span>+91-8879997299</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-detail">
+            <strong>Enquiries</strong>
+            <span>Mon – Sat · 9:00 AM to 9:00 PM</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🗓️</div>
+          <div class="contact-detail">
+            <strong>Sessions</strong>
+            <span>Mon – Fri · 10:00 AM to 7:00 PM</span>
+            <span style="display:block;margin-top:0.2rem;font-size:0.78rem;opacity:0.7;">Weekend sessions subject to counselor availability</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right reveal">
+        <p class="contact-right-title">Ready to take the first step?</p>
+        <p class="contact-right-sub">We're here whenever you are.</p>
+        <p style="font-size:0.88rem;line-height:1.75;opacity:0.75;">Whether you're looking for individual therapy, a corporate mental wellness programme, or support for your educational institute — we'd love to hear from you.</p>
+        <a href="https://wa.me/918879997299" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+        <p class="contact-note">We respond to enquiries Mon–Sat, 9 AM–9 PM. Sessions are available Mon–Fri, 10 AM–7 PM. All conversations are completely confidential.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Mind<span>scaping</span></div>
+  <p class="footer-text">© 2025 Mindscaping · Mindful Healing</p>
+  <p class="footer-text">Mumbai, India</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
