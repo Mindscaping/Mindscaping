@@ -942,26 +942,102 @@
   <div class="container">
     <p class="section-tag reveal">Our Space</p>
     <h2 class="section-title reveal">A Peek Into <em>Mindscaping.</em></h2>
-    <div style="position:relative; margin-top:3rem;">
-      <div id="carousel" style="display:flex; gap:1.2rem; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding-bottom:1rem;">
 
-        <div style="flex:0 0 320px; aspect-ratio:4/3; border-radius:1.2rem; overflow:hidden;">
-          <img src="images/gallery-1.jpg" alt="Corporate Seminar" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
-        <div style="flex:0 0 320px; aspect-ratio:4/3; border-radius:1.2rem; overflow:hidden;">
-          <img src="images/gallery-3.jpg" alt="College Workshop" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
+    <div style="position:relative; margin-top:3rem;">
+
+      <!-- Carousel Track -->
+      <div id="gallery-carousel" style="display:flex; gap:1.2rem; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding-bottom:0.5rem;">
         
-         <div style="flex:0 0 320px; aspect-ratio:4/3; border-radius:1.2rem; overflow:hidden;">
-          <img src="images/gallery-4.jpg" alt="College Workshop" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div onclick="openLightbox(0)" style="flex:0 0 420px; aspect-ratio:4/3; border-radius:1.2rem; overflow:hidden; cursor:zoom-in;">
+          <img src="images/gallery-1.jpg" alt="Gallery 1" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div onclick="openLightbox(1)" style="flex:0 0 420px; aspect-ratio:4/3; border-radius:1.2rem; overflow:hidden; cursor:zoom-in;">
+          <img src="images/gallery-2.jpg" alt="Gallery 2" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div onclick="openLightbox(2)" style="flex:0 0 420px; aspect-ratio:4/3; border-radius:1.2rem; overflow:hidden; cursor:zoom-in;">
+          <img src="images/gallery-3.jpg" alt="Gallery 3" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div onclick="openLightbox(3)" style="flex:0 0 420px; aspect-ratio:4/3; border-radius:1.2rem; overflow:hidden; cursor:zoom-in;">
+          <img src="images/gallery-4.jpg" alt="Gallery 4" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
         </div>
 
       </div>
-      <button onclick="document.getElementById('carousel').scrollBy({left:-350,behavior:'smooth'})" style="position:absolute;left:-1.5rem;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--brown);color:var(--offwhite);border:none;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
-      <button onclick="document.getElementById('carousel').scrollBy({left:350,behavior:'smooth'})" style="position:absolute;right:-1.5rem;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--brown);color:var(--offwhite);border:none;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">›</button>
+
+      <!-- Prev / Next Buttons -->
+      <button onclick="scrollCarousel(-1)" style="position:absolute; left:-1.5rem; top:50%; transform:translateY(-50%); background:white; border:none; border-radius:50%; width:3rem; height:3rem; font-size:1.2rem; box-shadow:0 4px 16px rgba(0,0,0,0.15); cursor:pointer; z-index:10;">&#8592;</button>
+      <button onclick="scrollCarousel(1)" style="position:absolute; right:-1.5rem; top:50%; transform:translateY(-50%); background:white; border:none; border-radius:50%; width:3rem; height:3rem; font-size:1.2rem; box-shadow:0 4px 16px rgba(0,0,0,0.15); cursor:pointer; z-index:10;">&#8594;</button>
+
     </div>
+
+    <!-- Dots -->
+    <div style="display:flex; justify-content:center; gap:0.5rem; margin-top:1.2rem;">
+      <span class="dot" onclick="goToSlide(0)" style="width:8px;height:8px;border-radius:50%;background:#ccc;cursor:pointer;transition:background 0.3s;"></span>
+      <span class="dot" onclick="goToSlide(1)" style="width:8px;height:8px;border-radius:50%;background:#ccc;cursor:pointer;transition:background 0.3s;"></span>
+      <span class="dot" onclick="goToSlide(2)" style="width:8px;height:8px;border-radius:50%;background:#ccc;cursor:pointer;transition:background 0.3s;"></span>
+      <span class="dot" onclick="goToSlide(3)" style="width:8px;height:8px;border-radius:50%;background:#ccc;cursor:pointer;transition:background 0.3s;"></span>
+    </div>
+
   </div>
 </section>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:9999; align-items:center; justify-content:center; cursor:zoom-out;">
+  <button onclick="event.stopPropagation(); shiftLightbox(-1)" style="position:fixed;left:2rem;top:50%;transform:translateY(-50%);background:white;border:none;border-radius:50%;width:3rem;height:3rem;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.3);">&#8592;</button>
+  <img id="lightbox-img" src="" alt="" style="max-width:85vw; max-height:85vh; border-radius:1rem; box-shadow:0 8px 40px rgba(0,0,0,0.5);">
+  <button onclick="event.stopPropagation(); shiftLightbox(1)" style="position:fixed;right:2rem;top:50%;transform:translateY(-50%);background:white;border:none;border-radius:50%;width:3rem;height:3rem;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.3);">&#8594;</button>
+  <span onclick="closeLightbox()" style="position:fixed;top:1.5rem;right:2rem;color:white;font-size:2.5rem;cursor:pointer;line-height:1;">&times;</span>
+</div>
+
+<script>
+  const images = ['images/gallery-1.jpg','images/gallery-2.jpg','images/gallery-3.jpg','images/gallery-4.jpg'];
+  let currentIndex = 0;
+
+  const carousel = document.getElementById('gallery-carousel');
+  const dots = document.querySelectorAll('.dot');
+
+  function updateDots(index) {
+    dots.forEach((d, i) => d.style.background = i === index ? 'var(--accent, #555)' : '#ccc');
+  }
+
+  function scrollCarousel(dir) {
+    const cardWidth = 420 + 19.2; // card + gap
+    carousel.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+  }
+
+  function goToSlide(index) {
+    const cardWidth = 420 + 19.2;
+    carousel.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+    updateDots(index);
+  }
+
+  carousel.addEventListener('scroll', () => {
+    const index = Math.round(carousel.scrollLeft / (420 + 19.2));
+    updateDots(index);
+  });
+
+  updateDots(0);
+
+  // Lightbox
+  function openLightbox(index) {
+    currentIndex = index;
+    document.getElementById('lightbox-img').src = images[index];
+    document.getElementById('lightbox').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function shiftLightbox(dir) {
+    currentIndex = (currentIndex + dir + images.length) % images.length;
+    document.getElementById('lightbox-img').src = images[currentIndex];
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') shiftLightbox(1);
+    if (e.key === 'ArrowLeft') shiftLightbox(-1);
+  });
+</script>
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
