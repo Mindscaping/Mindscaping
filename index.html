@@ -699,6 +699,7 @@
     <li><a href="#process">Our Process</a></li>
     <li><a href="#team">Our Team</a></li>
     <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="https://cognitivecompass.blogspot.com/" target="_blank" rel="noopener noreferrer">Blog</a></li>
     <li><a href="#contact" class="nav-cta">Reach Out</a></li>
   </ul>
@@ -937,7 +938,27 @@
     </div>
   </div>
 </section>
+<!-- GALLERY -->
+<section id="gallery" style="background: var(--offwhite); padding: 5rem 0;">
+  <div class="container">
+    <p class="section-tag reveal">Our Space</p>
+    <h2 class="section-title reveal">A Peek Into <em>Mindscaping.</em></h2>
+    <div style="position:relative; margin-top:3rem;">
+      <div id="carousel" style="display:flex; gap:1.2rem; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding-bottom:1rem;">
 
+        <div style="flex:0 0 320px; aspect-ratio:4/3; border-radius:1.2rem; overflow:hidden;">
+          <img src="images/gallery-1.jpg" alt="Corporate Seminar" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div style="flex:0 0 320px; aspect-ratio:4/3; border-radius:1.2rem; overflow:hidden;">
+          <img src="images/gallery-2.jpg" alt="Corporate Seminar" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+
+      </div>
+      <button onclick="document.getElementById('carousel').scrollBy({left:-350,behavior:'smooth'})" style="position:absolute;left:-1.5rem;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--brown);color:var(--offwhite);border:none;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
+      <button onclick="document.getElementById('carousel').scrollBy({left:350,behavior:'smooth'})" style="position:absolute;right:-1.5rem;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--brown);color:var(--offwhite);border:none;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">›</button>
+    </div>
+  </div>
+</section>
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
