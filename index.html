@@ -705,23 +705,26 @@ html<!-- SEO Meta Tags -->
 
 <!-- NAV -->
 <nav style="display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:1.2rem 4rem; position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(232,226,228,0.88); backdrop-filter:blur(12px); border-bottom:1px solid rgba(84,62,52,0.1);">
-  
+
   <!-- LEFT — brand name -->
-  <a class="nav-logo" href="#">Mind<span>scaping</span></a>
+  <div style="display:flex; align-items:center;">
+    <a class="nav-logo" href="#">Mind<span>scaping</span></a>
+  </div>
 
   <!-- CENTER — logo image -->
-  <img src="images/logo.jpg" alt="Mindscaping logo" style="height:44px; width:auto;">
+  <div style="display:flex; justify-content:center; align-items:center;">
+    <img src="images/logo.png" alt="Mindscaping logo" style="height:44px; width:auto;">
+  </div>
 
   <!-- RIGHT — nav links -->
-  <ul class="nav-links" style="justify-content:flex-end;">
-    <li><a href="#about">About</a></li>
-    <li><a href="#team">Our Team</a></li>
-    <li><a href="#testimonials">Stories</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="https://cognitivecompass.blogspot.com/" target="_blank" rel="noopener noreferrer">Blog</a></li>
-    <li><a href="https://mindscapingresearch.in" target="_blank" rel="noopener noreferrer">Research</a></li>
-    <li><a href="#contact" class="nav-cta">Reach Out</a></li>
-  </ul>
+  <div style="display:flex; justify-content:flex-end; align-items:center; gap:1.8rem;">
+    <a href="#about" style="text-decoration:none; color:var(--brown); font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; opacity:0.75; white-space:nowrap;">About</a>
+    <a href="#team" style="text-decoration:none; color:var(--brown); font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; opacity:0.75; white-space:nowrap;">Team</a>
+    <a href="#gallery" style="text-decoration:none; color:var(--brown); font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; opacity:0.75; white-space:nowrap;">Gallery</a>
+    <a href="https://cognitivecompass.blogspot.com/" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:var(--brown); font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; opacity:0.75; white-space:nowrap;">Blog</a>
+    <a href="https://mindscapingresearch.in" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:var(--brown); font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; opacity:0.75; white-space:nowrap;">Research</a>
+    <a href="#contact" class="nav-cta" style="opacity:1; white-space:nowrap;">Reach Out</a>
+  </div>
 
 </nav>
 
