@@ -704,16 +704,12 @@ html<!-- SEO Meta Tags -->
 <body>
 
 <!-- NAV -->
-<nav style="display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:1.2rem 4rem; position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(232,226,228,0.88); backdrop-filter:blur(12px); border-bottom:1px solid rgba(84,62,52,0.1);">
+<nav style="display:flex; align-items:center; justify-content:space-between; padding:1.2rem 4rem; position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(232,226,228,0.88); backdrop-filter:blur(12px); border-bottom:1px solid rgba(84,62,52,0.1);">
 
-  <!-- LEFT — brand name -->
-  <div style="display:flex; align-items:center;">
-    <a class="nav-logo" href="#">Mind<span>scaping</span></a>
-  </div>
-
-  <!-- CENTER — logo image -->
-  <div style="display:flex; justify-content:center; align-items:center;">
-    <img src="images/logo.png" alt="Mindscaping logo" style="height:44px; width:auto;">
+  <!-- LEFT — logo above brand name -->
+  <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;">
+    <img src="images/logo.jpg" alt="Mindscaping logo" style="height:55px; width:auto;">
+    <a class="nav-logo" href="#" style="font-size:1.2rem;">Mind<span>scaping</span></a>
   </div>
 
   <!-- RIGHT — nav links -->
@@ -727,7 +723,7 @@ html<!-- SEO Meta Tags -->
   </div>
 
 </nav>
-
+  
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
