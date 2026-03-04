@@ -677,28 +677,44 @@ html<!-- SEO Meta Tags -->
     }
 
     /* ===== MOBILE ===== */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
+  @media (max-width: 900px) {
+  nav {
+    padding: 0.8rem 1.5rem !important;
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+  }
 
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { min-height: 340px; }
-      .hero-left { padding: 4rem 2rem 3rem; }
+  nav > div:last-child { display: none !important; }
 
-      .about-grid,
-      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  nav img { height: 36px !important; }
 
-      .values-grid { grid-template-columns: 1fr; }
+  .nav-logo { font-size: 1rem !important; }
 
-      .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .hamburger { display: flex !important; }
 
-      .process-grid { grid-template-columns: 1fr !important; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { min-height: 340px; }
+  .hero-left { padding: 4rem 2rem 3rem; }
 
-      .testimonials-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
 
-      .container { padding: 0 1.5rem; }
-      footer { flex-direction: column; gap: 0.6rem; text-align: center; }
-    }
+  .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+
+  .about-grid,
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+  .values-grid { grid-template-columns: 1fr; }
+
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .testimonials-grid { grid-template-columns: 1fr; }
+
+  .process-grid { grid-template-columns: 1fr !important; }
+
+  .container { padding: 0 1.5rem; }
+
+  footer { flex-direction: column; gap: 0.6rem; text-align: center; }
+}
   </style>
 </head>
 <body>
