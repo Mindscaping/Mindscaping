@@ -38,18 +38,6 @@ const testimonial = defineType({
   ],
 });
 
-const service = defineType({
-  name: "service",
-  title: "Services",
-  type: "document",
-  fields: [
-    defineField({ name: "title", type: "string", validation: (r: any) => r.required() }),
-    defineField({ name: "description", type: "text", rows: 3 }),
-    defineField({ name: "icon", type: "string", title: "Emoji icon" }),
-    defineField({ name: "order", type: "number" }),
-  ],
-});
-
 const galleryImage = defineType({
   name: "galleryImage",
   title: "Gallery",
@@ -58,25 +46,6 @@ const galleryImage = defineType({
     defineField({ name: "image", type: "image", validation: (r: any) => r.required() }),
     defineField({ name: "caption", type: "string" }),
     defineField({ name: "order", type: "number" }),
-  ],
-});
-
-const page = defineType({
-  name: "page",
-  title: "Pages",
-  type: "document",
-  fields: [
-    defineField({ name: "slug", type: "slug", options: { source: "title" }, validation: (r: any) => r.required() }),
-    defineField({ name: "title", type: "string", validation: (r: any) => r.required() }),
-    defineField({ name: "content", type: "array", of: [defineArrayMember({ type: "block" })] }),
-    defineField({
-      name: "meta",
-      type: "object",
-      fields: [
-        { name: "title", type: "string" },
-        { name: "description", type: "text", rows: 2 },
-      ],
-    }),
   ],
 });
 
@@ -96,4 +65,4 @@ const post = defineType({
   orderings: [{ name: "publishedAt", title: "Published At", by: [{ field: "publishedAt", direction: "desc" }] }],
 });
 
-export const schemaTypes = [teamMember, faq, testimonial, service, galleryImage, page, post];
+export const schemaTypes = [teamMember, faq, testimonial, galleryImage, post];

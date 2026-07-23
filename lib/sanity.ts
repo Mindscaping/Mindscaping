@@ -20,16 +20,8 @@ export async function getTestimonials() {
   return safeFetch(`*[_type == "testimonial"]`);
 }
 
-export async function getServices() {
-  return safeFetch(`*[_type == "service"] | order(order asc)`);
-}
-
 export async function getGalleryImages() {
   return safeFetch(`*[_type == "galleryImage"] | order(order asc)`);
-}
-
-export async function getPage(slug: string) {
-  return safeFetchOne(`*[_type == "page" && slug.current == $slug][0]`, { slug });
 }
 
 export async function getPosts() {
@@ -40,8 +32,4 @@ export async function getPost(slug: string) {
   return safeFetchOne(`*[_type == "post" && slug.current == $slug][0]`, { slug });
 }
 
-export async function getAllSlugs() {
-  const pages = await safeFetch(`*[_type == "page"]{"slug": slug.current}`);
-  const posts = await safeFetch(`*[_type == "post" && defined(slug.current)]{"slug": slug.current}`);
-  return { pages, posts };
-}
+

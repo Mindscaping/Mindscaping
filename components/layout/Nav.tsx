@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+
 
 const links = [
   { href: "/#approach", label: "Our Approach" },
@@ -63,9 +63,9 @@ export default function Nav() {
         className="md:hidden flex flex-col gap-1.5 p-2"
         aria-label="Menu"
       >
-        <span className={cn("block w-6 h-0.5 bg-brand-brown transition-transform", open && "rotate-45 translate-y-2")} />
-        <span className={cn("block w-6 h-0.5 bg-brand-brown transition-opacity", open && "opacity-0")} />
-        <span className={cn("block w-6 h-0.5 bg-brand-brown transition-transform", open && "-rotate-45 -translate-y-2")} />
+        <span className={["block w-6 h-0.5 bg-brand-brown transition-transform", open && "rotate-45 translate-y-2"].filter(Boolean).join(' ')} />
+        <span className={["block w-6 h-0.5 bg-brand-brown transition-opacity", open && "opacity-0"].filter(Boolean).join(' ')} />
+        <span className={["block w-6 h-0.5 bg-brand-brown transition-transform", open && "-rotate-45 -translate-y-2"].filter(Boolean).join(' ')} />
       </button>
 
       {/* Mobile menu */}
