@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import FaqSection from "@/components/sections/FaqSection";
-import { getFaqs } from "@/lib/sanity";
+import { getFaqs } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "FAQs",

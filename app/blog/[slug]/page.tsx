@@ -2,22 +2,20 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import PostBody from "@/components/blog/PostBody";
-import { getPost, getPosts } from "@/lib/sanity";
-import { urlFor } from "@/lib/sanity";
+import { getPost, getPosts } from "@/lib/content";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.filter((p: any) => p.slug?.current).map((p: any) => ({ slug: p.slug.current }));
+  const posts = getPosts();
+  return posts.filter((p: any) => p.slug).map((p: any) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPost(slug) as any;
+  const post = getPost(slug) as any;
   if (!post) return { title: "Post Not Found" };
 
   return {
@@ -26,16 +24,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      ...(post.featuredImage && urlFor(post.featuredImage)
-        ? { images: [{ url: urlFor(post.featuredImage)!.width(1200).height(630).url() }] }
-        : {}),
+      ...(post.featuredImage ? { images: [{ url: post.featuredImage }] } : {}),
     },
   };
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = await getPost(slug) as any;
+  const post = getPost(slug) as any;
   if (!post) notFound();
 
   return (
@@ -64,10 +60,10 @@ export default async function BlogPostPage({ params }: Props) {
         )}
       </div>
 
-      {post.featuredImage && urlFor(post.featuredImage) && (
+      {post.featuredImage && (
         <div className="relative aspect-[16/9] rounded-xl overflow-hidden mb-10">
           <Image
-            src={urlFor(post.featuredImage)!.width(1200).height(675).url()}
+            src={post.featuredImage}
             alt={post.title}
             fill
             className="object-cover"
@@ -76,7 +72,11 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       )}
 
-      {post.content && <PostBody content={post.content} />}
+      {post.content && (
+        <div className="prose prose-brand max-w-none text-sm leading-relaxed text-brand-brown/80">
+          {post.content}
+        </div>
+      )}
     </article>
   );
 }

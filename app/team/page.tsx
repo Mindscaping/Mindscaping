@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import TeamSection from "@/components/sections/TeamSection";
-import { getTeamMembers } from "@/lib/sanity";
+import { getTeamMembers } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Our Team",

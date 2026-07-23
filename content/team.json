@@ -1,0 +1,51 @@
+[
+  {
+    "bio": "Expert in CBT, Art & Play therapy. A neurodivergent and queer affirming practitioner creating inclusive healing spaces rooted in authenticity and safety. Her affiliation with the APA ensures that all treatment is rooted in evidence and the quality of care is of the highest standard.",
+    "credentials": "International Affiliate, American Psychological Association",
+    "name": "Ms. Anoushka Gupta",
+    "role": "Founder & Psychotherapist",
+    "photo": "/images/ME.jpg"
+  },
+  {
+    "bio": "Specialised in CBT and DBT. Her structured yet deeply empathetic approach ensures that clients receive a clear, professional, and scientifically-grounded foundation for their mental health journey. She is instrumental in maintaining the high clinical standards that define our organization's reputation.",
+    "credentials": "Lead Clinical Psychologist",
+    "name": "Mrs. Yashaswini Bansal",
+    "role": "RCI Licensed Clinical Psychologist",
+    "photo": "/images/Yashaswini.jpg"
+  },
+  {
+    "bio": "Specialised in trauma-informed care, leading clinical assessments. Her commitment to a trauma-sensitive approach allows her to conduct evaluations with the necessary care and compassion required for meaningful healing. She excels at identifying patterns to help clients toward long-term resilience.",
+    "credentials": null,
+    "name": "Ms. Pavithra Chinnaiyan",
+    "role": "RCI Licensed Clinical Psychologist",
+    "photo": "/images/Pavithra.jpg"
+  },
+  {
+    "bio": "Specialising in trauma-informed care and grief counseling. As a primary practitioner for many of Mindscaping's therapy clients, she brings a gentle, informed, and highly perspective-driven approach to every session. Her expertise in navigating the complexities of loss and transitions makes her a cornerstone of our therapeutic team.",
+    "credentials": "Lead Counselling Psychologist",
+    "name": "Ms. Alisha Sansare",
+    "role": "Psychotherapist",
+    "photo": "/images/alisha.jpg"
+  },
+  {
+    "bio": "Trained and specialises in ECLECTIC modality. Harsh provides highly personalized, culturally sensitive therapy in a safe and affirming space. He specializes in navigating neurodivergence, interpersonal relationships, men's mental health, LGBTQIA+ experiences, and personal growth through a collaborative approach.",
+    "credentials": "Counselling Psychologist",
+    "name": "Mr. Harsh Mehta",
+    "role": "Psychotherapist",
+    "photo": "/images/harsh.jpg"
+  },
+  {
+    "bio": "Practises evidence-based psychiatry guided by the bio-psycho-social model. A strong advocate for patient autonomy, she prioritizes shared decision-making and provides clear, accessible psychoeducation to empower her clients throughout their mental health journey. Special interest in trauma, personality disorders, women's mental health, and chronic pain.",
+    "credentials": null,
+    "name": "Dr. Aanushka Suklabaidya",
+    "role": "Consultant Psychiatrist (MD Psychiatry)",
+    "photo": "/images/aanushka-suklabaidya.jpg"
+  },
+  {
+    "bio": "Works with students from pre-primary to Grade 10 and young adults aged 18 to 28. Delivers individual counselling, classroom sessions, and student-focused wellbeing interventions. Applies a client-centred, integrative approach grounded in CBT and REBT principles. Incorporates talk therapy, psychoeducation, and behavioural strategies tailored to each individual.",
+    "credentials": null,
+    "name": "Ms. Shifa Sajan",
+    "role": "School Counsellor",
+    "photo": "/images/Shifa.jpg"
+  }
+]

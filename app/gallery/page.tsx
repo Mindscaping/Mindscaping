@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import GallerySection from "@/components/sections/GallerySection";
-import { getGalleryImages } from "@/lib/sanity";
+import { getGalleryImages } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Gallery",

@@ -1,29 +1,25 @@
 import Link from "next/link";
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
 
 interface Post {
-  _id: string;
   title: string;
-  slug?: { current: string };
+  slug?: string;
   excerpt?: string;
-  featuredImage?: unknown;
+  featuredImage?: string;
   publishedAt?: string;
   author?: string;
 }
 
 export default function PostCard({ post }: { post: Post }) {
-  const imgUrl = post.featuredImage ? urlFor(post.featuredImage) : null;
-
   return (
     <Link
-      href={`/blog/${post.slug?.current}`}
+      href={`/blog/${post.slug}`}
       className="group bg-brand-offwhite rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all border border-brand-brown/5"
     >
-      {imgUrl && (
+      {post.featuredImage && (
         <div className="aspect-[16/9] relative overflow-hidden">
           <Image
-            src={imgUrl.width(600).height(338).url()}
+            src={post.featuredImage}
             alt={post.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"

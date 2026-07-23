@@ -1,10 +1,12 @@
 import type { MetadataRoute } from "next";
-import { client } from "@/sanity/client";
+import { getAllSlugs } from "@/lib/content";
 
-// ponytail: dynamic sitemap — fetches posts from Sanity, falls back to static
+// ponytail: static sitemap — reads slugs from content files
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = "https://mindscaping.in";
-  const staticUrls: MetadataRoute.Sitemap = [
+  const { posts } = getAllSlugs();
+
+  const urls: MetadataRoute.Sitemap = [
     { url: base, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
     { url: `${base}/team`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
@@ -14,20 +16,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  if (!client) return staticUrls;
-
-  try {
-    const slugs = await client.fetch<{ slug: string }[]>(
-      `*[_type == "post" && defined(slug.current)]{"slug": slug.current}`,
-    );
-    const postUrls: MetadataRoute.Sitemap = slugs.map((s) => ({
-      url: `${base}/blog/${s.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    }));
-    return [...staticUrls, ...postUrls];
-  } catch {
-    return staticUrls;
+  for (const slug of posts) {
+    urls.push({ url: `${base}/blog/${slug}`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.6 });
   }
+
+  return urls;
 }

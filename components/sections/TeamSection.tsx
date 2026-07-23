@@ -2,15 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
 
 interface TeamMember {
-  _id: string;
   name: string;
   role?: string;
   credentials?: string;
   bio?: string;
-  photo?: unknown;
+  photo?: string;
+  order?: number;
 }
 
 interface Props {
@@ -48,38 +47,35 @@ export default function TeamSection({ members }: Props) {
         </div>
 
         {members.length === 0 && (
-          <p className="text-brand-taupe italic font-serif text-lg">Team members not yet added in Sanity Studio.</p>
+          <p className="text-brand-taupe italic font-serif text-lg">Team members not yet added.</p>
         )}
 
         {members.length > 0 && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-            {members.map((m) => {
-              const imgUrl = m.photo ? urlFor(m.photo) : null;
-              return (
-                <div key={m._id} className="reveal bg-brand-offwhite rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all">
-                  <div className="aspect-[3/4] relative bg-gradient-to-br from-brand-brown/15 to-brand-taupe/25">
-                    {imgUrl ? (
-                      <Image
-                        src={imgUrl.width(600).height(800).url()}
-                        alt={m.name}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full text-5xl opacity-30 select-none">⊞</div>
-                    )}
-                  </div>
-                  <div className="p-4 sm:p-5">
-                    <p className="font-serif text-lg font-medium text-brand-brown mb-1">{m.name}</p>
-                    {m.role && <p className="text-xs tracking-widest uppercase text-brand-taupe mb-1">{m.role}</p>}
-                    {m.credentials && (
-                      <p className="font-serif italic text-sm text-brand-taupe mt-1">{m.credentials}</p>
-                    )}
-                    {m.bio && <p className="text-sm leading-relaxed text-brand-brown/80 font-light mt-3">{m.bio}</p>}
-                  </div>
+            {members.map((m, idx) => (
+              <div key={m.name} className="reveal bg-brand-offwhite rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all">
+                <div className="aspect-[3/4] relative bg-gradient-to-br from-brand-brown/15 to-brand-taupe/25">
+                  {m.photo ? (
+                    <Image
+                      src={m.photo}
+                      alt={m.name}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-5xl opacity-30 select-none">⊞</div>
+                  )}
                 </div>
-              );
-            })}
+                <div className="p-4 sm:p-5">
+                  <p className="font-serif text-lg font-medium text-brand-brown mb-1">{m.name}</p>
+                  {m.role && <p className="text-xs tracking-widest uppercase text-brand-taupe mb-1">{m.role}</p>}
+                  {m.credentials && (
+                    <p className="font-serif italic text-sm text-brand-taupe mt-1">{m.credentials}</p>
+                  )}
+                  {m.bio && <p className="text-sm leading-relaxed text-brand-brown/80 font-light mt-3">{m.bio}</p>}
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

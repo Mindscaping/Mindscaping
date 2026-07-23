@@ -9,7 +9,7 @@ import GallerySection from "@/components/sections/GallerySection";
 import FaqSection from "@/components/sections/FaqSection";
 import ContactSection from "@/components/sections/ContactSection";
 import JsonLd from "@/components/JsonLd";
-import { getTeamMembers, getTestimonials, getGalleryImages, getFaqs } from "@/lib/sanity";
+import { getTeamMembers, getTestimonials, getGalleryImages, getFaqs } from "@/lib/content";
 
 // ponytail: fetch all data in one page, pass as props — no layout shifts, no client waterfalls
 export default async function HomePage() {

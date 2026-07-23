@@ -1,0 +1,78 @@
+backend:
+  name: github
+  repo: Mindscaping/Mindscaping
+  branch: main
+  base_url: /
+  auth_endpoint: api/auth
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: team
+    label: Team Members
+    folder: content
+    extension: json
+    format: json
+    create: true
+    slug: "team"
+    identifier_field: name
+    fields:
+      - { name: name, label: Name, widget: string }
+      - { name: role, label: Role, widget: string, required: false }
+      - { name: credentials, label: Credentials, widget: string, required: false }
+      - { name: bio, label: Bio, widget: text, required: false }
+      - { name: photo, label: Photo, widget: image, required: false }
+      - { name: order, label: Order, widget: number, required: false }
+
+  - name: faq
+    label: FAQs
+    folder: content
+    extension: json
+    format: json
+    create: true
+    slug: "faq"
+    identifier_field: question
+    fields:
+      - { name: question, label: Question, widget: string }
+      - { name: answer, label: Answer, widget: text }
+
+  - name: testimonials
+    label: Testimonials
+    folder: content
+    extension: json
+    format: json
+    create: true
+    slug: "testimonials"
+    identifier_field: quote
+    fields:
+      - { name: name, label: Name, widget: string, required: false }
+      - { name: quote, label: Quote, widget: text }
+      - { name: featured, label: Featured, widget: boolean, default: true, required: false }
+
+  - name: gallery
+    label: Gallery Images
+    folder: content
+    extension: json
+    format: json
+    create: true
+    slug: "gallery"
+    fields:
+      - { name: caption, label: Caption, widget: string, required: false }
+      - { name: src, label: Image, widget: image }
+      - { name: order, label: Order, widget: number, required: false }
+
+  - name: blog
+    label: Blog Posts
+    folder: content/blog
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: excerpt, label: Excerpt, widget: text, required: false }
+      - { name: featuredImage, label: Featured Image, widget: image, required: false }
+      - { name: publishedAt, label: Published At, widget: datetime }
+      - { name: author, label: Author, widget: string, default: "Mindscaping", required: false }
+      - { name: body, label: Body, widget: markdown }
