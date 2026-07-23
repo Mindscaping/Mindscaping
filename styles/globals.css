@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --brown: #6b5b95;
+  --offwhite: #f0eeff;
+  --taupe: #8fa8c8;
+  --light-taupe: #c3b8e8;
+  --cream: #eef4ff;
+}
+
+@theme {
+  --color-brand-brown: var(--brown);
+  --color-brand-offwhite: var(--offwhite);
+  --color-brand-taupe: var(--taupe);
+  --color-brand-light-taupe: var(--light-taupe);
+  --color-brand-cream: var(--cream);
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Jost", sans-serif;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
