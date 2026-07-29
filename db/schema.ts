@@ -1,5 +1,4 @@
-// ponytail: Better Auth tables — minimal Drizzle schema for Neon
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, integer } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -15,7 +14,10 @@ export const session = pgTable("session", {
   userId: text("user_id").notNull().references(() => user.id),
   token: text("token").notNull().unique(),
   expiresAt: timestamp("expires_at").notNull(),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export const account = pgTable("account", {
@@ -23,4 +25,7 @@ export const account = pgTable("account", {
   userId: text("user_id").notNull().references(() => user.id),
   providerId: text("provider_id").notNull(),
   providerAccountId: text("provider_account_id").notNull(),
+  password: text("password"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
