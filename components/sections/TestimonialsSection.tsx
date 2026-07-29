@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useReveal } from "@/hooks/useReveal";
 
 interface Testimonial {
   _id: string;
@@ -13,24 +13,7 @@ interface Props {
 }
 
 export default function TestimonialsSection({ testimonials }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry, i) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add("visible"), i * 60);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-    el.querySelectorAll(".reveal").forEach((r) => observer.observe(r));
-    return () => observer.disconnect();
-  }, []);
+  const ref = useReveal();
 
   return (
     <section id="testimonials" className="bg-brand-brown py-24" ref={ref}>

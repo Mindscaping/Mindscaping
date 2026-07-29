@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useReveal } from "@/hooks/useReveal";
+import { useState } from "react";
 
 interface FaqItem {
   _id: string;
@@ -13,26 +14,8 @@ interface Props {
 }
 
 export default function FaqSection({ faqs }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useReveal();
   const [openId, setOpenId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry, i) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add("visible"), i * 60);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-    el.querySelectorAll(".reveal").forEach((r) => observer.observe(r));
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section id="faq" className="bg-brand-offwhite py-24" ref={ref}>

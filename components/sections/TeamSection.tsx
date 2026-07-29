@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useReveal } from "@/hooks/useReveal";
 import Image from "next/image";
 
 interface TeamMember {
@@ -17,24 +17,7 @@ interface Props {
 }
 
 export default function TeamSection({ members }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry, i) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add("visible"), i * 60);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-    el.querySelectorAll(".reveal").forEach((r) => observer.observe(r));
-    return () => observer.disconnect();
-  }, []);
+  const ref = useReveal();
 
   return (
     <section id="team" className="bg-brand-cream py-24" ref={ref}>
