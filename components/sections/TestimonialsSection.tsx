@@ -24,8 +24,8 @@ export default function TestimonialsSection({ testimonials }: Props) {
         </h2>
 
         <div className="reveal mt-14 grid grid-cols-1 md:grid-cols-3 gap-5">
-          {testimonials.map((t) => (
-            <div key={t._id} className="bg-white/8 border border-white/15 rounded-xl p-6 sm:p-8 hover:bg-white/10 transition-colors relative">
+          {testimonials.map((t, i) => (
+            <div key={i} className="bg-white/8 border border-white/15 rounded-xl p-6 sm:p-8 hover:bg-white/10 transition-colors relative">
               <span className="font-serif text-6xl leading-none text-white/10 absolute top-4 left-5">&ldquo;</span>
               <p className="font-serif text-lg italic leading-relaxed text-brand-offwhite/85 relative z-10">
                 {t.quote}

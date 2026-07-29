@@ -26,15 +26,15 @@ export default function FaqSection({ faqs }: Props) {
         </h2>
 
         <div className="reveal mt-12 flex flex-col">
-          {faqs.map((faq) => {
-            const isOpen = openId === faq._id;
+          {faqs.map((faq, i) => {
+            const isOpen = openId === `faq-${i}`;
             return (
               <div
-                key={faq._id}
+                key={`faq-${i}`}
                 className="border-t border-brand-brown/15 py-6"
               >
                 <button
-                  onClick={() => setOpenId(isOpen ? null : faq._id)}
+                  onClick={() => setOpenId(isOpen ? null : `faq-${i}`)}
                   className="w-full flex justify-between items-center gap-4 text-left"
                   aria-expanded={isOpen}
                 >
