@@ -23,7 +23,6 @@ export default function LoginPage() {
       return;
     }
     const data = await res.json();
-    if (data.token) document.cookie = `better-auth.session=${data.token}; path=/; secure; samesite=lax`;
     router.push("/admin");
   }
 

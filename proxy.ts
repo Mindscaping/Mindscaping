@@ -5,7 +5,7 @@ export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (!pathname.startsWith("/admin")) return;
 
-  const sessionToken = req.cookies.get("better-auth.session")?.value;
+  const sessionToken = req.cookies.get("better-auth.session_token")?.value;
   if (!sessionToken) {
     return NextResponse.redirect(new URL("/auth/login", req.url));
   }
