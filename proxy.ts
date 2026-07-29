@@ -1,4 +1,4 @@
-// ponytail: protect /admin behind auth check. Allow static assets.
+// ponytail: protect /admin behind auth check. Allow static assets except HTML.
 import { NextRequest, NextResponse } from "next/server";
 
 const STATIC_EXTENSIONS = /\.(yml|yaml|json|css|js|png|jpg|svg|ico|woff2?)$/;
@@ -10,7 +10,6 @@ export default async function middleware(req: NextRequest) {
   if (STATIC_EXTENSIONS.test(pathname)) return;
 
   const sessionToken = req.cookies.get("better-auth.session_token")?.value;
-
   if (!sessionToken) {
     return NextResponse.redirect(new URL("/auth/login", req.nextUrl.origin));
   }

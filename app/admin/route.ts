@@ -1,6 +1,6 @@
-// ponytail: redirect /admin to /admin/ so relative URLs (config.yml) resolve correctly
+// ponytail: redirect /admin → /admin/index.html (avoids trailing-slash redirect loop)
 import { redirect } from "next/navigation";
 
 export function GET() {
-  redirect("/admin/");
+  redirect("/admin/index.html");
 }
