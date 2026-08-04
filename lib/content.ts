@@ -54,10 +54,9 @@ export function getPost(slug: string) {
 
 export function getAllSlugs() {
   const dir = path.join(contentDir, "blog");
-  if (!fs.existsSync(dir)) return { pages: [], posts: [] };
-  const posts = fs
+  if (!fs.existsSync(dir)) return [];
+  return fs
     .readdirSync(dir)
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.replace(/\.md$/, ""));
-  return { pages: [], posts };
 }

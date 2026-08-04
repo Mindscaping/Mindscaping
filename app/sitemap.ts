@@ -4,7 +4,7 @@ import { getAllSlugs } from "@/lib/content";
 // ponytail: static sitemap — reads slugs from content files
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = "https://mindscaping.in";
-  const { posts } = getAllSlugs();
+  const posts = getAllSlugs();
 
   const urls: MetadataRoute.Sitemap = [
     { url: base, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
