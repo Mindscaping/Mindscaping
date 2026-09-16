@@ -23,7 +23,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center pt-24">
-      <p className="text-brand-brown/60">Redirecting...</p>
+      <div className="w-8 h-8 border-2 border-brand-brown border-t-transparent rounded-full animate-spin" />
     </div>
   );
 }

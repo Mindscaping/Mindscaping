@@ -2,6 +2,10 @@ FROM node:20-alpine
 WORKDIR /app
 RUN apk add --no-cache openssl
 COPY package.json package-lock.json ./
+COPY prisma ./prisma/
+RUN npm ci --legacy-peer-deps
+ARG DATABASE_URL="file:./dev.db"
+ENV DATABASE_URL=$DATABASE_URL
 RUN npm ci --legacy-peer-deps
 COPY . .
 RUN npx prisma generate

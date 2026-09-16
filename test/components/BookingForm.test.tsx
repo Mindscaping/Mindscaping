@@ -205,6 +205,40 @@ describe("BookingForm", () => {
     expect(select.options.length).toBe(8);
   });
 
+  it("pre-fills form from logged-in user data", async () => {
+    globalThis.fetch = vi.fn()
+      .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ user: { name: "Logged User", email: "logged@test.com", phone: "9876543210" } }) })
+      .mockResolvedValue({ ok: true });
+
+    render(<BookingForm />);
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Full Name/)).toHaveValue("Logged User");
+    });
+    expect(screen.getByLabelText(/Email/)).toHaveValue("logged@test.com");
+    expect(screen.getByLabelText(/Phone Number/)).toHaveValue("9876543210");
+  });
+
+  it("resets form when Book Another is clicked", async () => {
+    globalThis.fetch = vi.fn().mockResolvedValue({ ok: true });
+
+    render(<BookingForm />);
+    fireEvent.change(screen.getByLabelText(/Full Name/), { target: { value: "Test User" } });
+    fireEvent.change(screen.getByLabelText(/Email/), { target: { value: "test@test.com" } });
+    fireEvent.change(screen.getByLabelText(/Phone Number/), { target: { value: "9876543210" } });
+    fireEvent.change(screen.getByLabelText(/Session Type/), { target: { value: "individual" } });
+    fireEvent.change(screen.getByLabelText(/Preferred Date/), { target: { value: "2026-12-01" } });
+    fireEvent.change(screen.getByLabelText(/Preferred Time/), { target: { value: "10:00" } });
+    fireEvent.click(screen.getByRole("button", { name: /Request Booking/ }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Booking Request Received/)).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByText(/Book Another Session/));
+    expect(screen.getByLabelText(/Full Name/)).toHaveValue("");
+    expect(screen.getByLabelText(/Email/)).toHaveValue("");
+  });
+
   it("has accessible form labels", () => {
     render(<BookingForm />);
     expect(screen.getByLabelText(/Full Name/)).toHaveAttribute("id", "booking-name");

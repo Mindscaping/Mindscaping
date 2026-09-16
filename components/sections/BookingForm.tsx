@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useReveal } from "@/hooks/useReveal";
 import {
   SESSION_TYPES,
@@ -40,6 +40,22 @@ export default function BookingForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.user) {
+          setForm((prev) => ({
+            ...prev,
+            name: prev.name || data.user.name || "",
+            email: prev.email || data.user.email || "",
+            phone: prev.phone || data.user.phone || "",
+          }));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const slots = form.preferredDate ? getAvailableSlots(form.preferredDate) : [];
 
@@ -93,9 +109,28 @@ export default function BookingForm() {
             <p className="text-sm leading-relaxed opacity-75 mb-6">
               Our team will review your request and confirm your session via WhatsApp or email within 24 hours.
             </p>
-            <p className="text-xs opacity-50">
+            <p className="text-xs opacity-50 mb-6">
               For urgent queries, WhatsApp us at +91-8879997299.
             </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href="/dashboard"
+                className="inline-block bg-white text-brand-brown px-6 py-3 rounded-full text-xs tracking-widest uppercase font-medium hover:bg-brand-offwhite transition-colors"
+              >
+                Go to Dashboard
+              </a>
+              <button
+                onClick={() => {
+                  setSubmitted(false);
+                  setForm(initialForm);
+                  setErrors({});
+                  setServerError("");
+                }}
+                className="inline-block bg-white/10 text-brand-offwhite px-6 py-3 rounded-full text-xs tracking-widest uppercase font-medium hover:bg-white/20 transition-colors"
+              >
+                Book Another Session
+              </button>
+            </div>
           </div>
         </div>
       </section>

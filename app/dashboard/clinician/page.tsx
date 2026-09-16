@@ -30,13 +30,28 @@ interface Note {
   session: { id: string; date: string; type: string } | null;
 }
 
+interface Booking {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  sessionType: string;
+  preferredDate: string;
+  preferredTime: string;
+  therapistPreference: string | null;
+  notes: string | null;
+  status: string;
+  createdAt: string;
+}
+
 export default function ClinicianDashboard() {
   const router = useRouter();
   const [user, setUser] = useState<{ id: string; name: string; role: string } | null>(null);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [notes, setNotes] = useState<Note[]>([]);
-  const [activeTab, setActiveTab] = useState<"patients" | "sessions" | "notes" | "chat">("patients");
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [activeTab, setActiveTab] = useState<"bookings" | "patients" | "sessions" | "notes" | "chat">("bookings");
   const [selectedPatient, setSelectedPatient] = useState<string | null>(null);
   const [noteForm, setNoteForm] = useState({ patientId: "", type: "session", content: "", sessionId: "" });
   const [sessionForm, setSessionForm] = useState({ patientId: "", date: "", type: "individual" });
@@ -60,6 +75,7 @@ export default function ClinicianDashboard() {
     fetch("/api/patients").then((r) => r.json()).then((d) => setPatients(d.patients || []));
     fetch("/api/sessions").then((r) => r.json()).then((d) => setSessions(d.sessions || []));
     fetch("/api/notes").then((r) => r.json()).then((d) => setNotes(d.notes || []));
+    fetch("/api/bookings").then((r) => r.json()).then((d) => setBookings(d.bookings || []));
   }, [user]);
 
   async function handleLogout() {
@@ -103,9 +119,58 @@ export default function ClinicianDashboard() {
     }
   }
 
+  async function acceptBooking(booking: Booking) {
+    setMessage("");
+    // Update booking status to confirmed
+    const patchRes = await fetch("/api/bookings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: booking.id, status: "confirmed" }),
+    });
+    if (!patchRes.ok) {
+      setMessage("Failed to confirm booking");
+      return;
+    }
+    // Create a session from the booking data
+    const sessionRes = await fetch("/api/sessions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        patientId: patients.find((p) => p.email === booking.email)?.id || "",
+        date: `${booking.preferredDate}T${booking.preferredTime}:00`,
+        type: booking.sessionType,
+      }),
+    });
+    if (sessionRes.ok) {
+      setMessage("Booking confirmed and session created");
+      setBookings((prev) => prev.map((b) => b.id === booking.id ? { ...b, status: "confirmed" } : b));
+      const d = await fetch("/api/sessions").then((r) => r.json());
+      setSessions(d.sessions || []);
+    } else {
+      setMessage("Booking confirmed but failed to create session");
+      setBookings((prev) => prev.map((b) => b.id === booking.id ? { ...b, status: "confirmed" } : b));
+    }
+  }
+
+  async function declineBooking(booking: Booking) {
+    setMessage("");
+    const res = await fetch("/api/bookings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: booking.id, status: "cancelled" }),
+    });
+    if (res.ok) {
+      setMessage("Booking declined");
+      setBookings((prev) => prev.map((b) => b.id === booking.id ? { ...b, status: "cancelled" } : b));
+    } else {
+      setMessage("Failed to decline booking");
+    }
+  }
+
   if (!user) return null;
 
   const tabs = [
+    { id: "bookings" as const, label: "Bookings" },
     { id: "patients" as const, label: "Patients" },
     { id: "sessions" as const, label: "Sessions" },
     { id: "notes" as const, label: "Notes" },
@@ -158,6 +223,65 @@ export default function ClinicianDashboard() {
             </button>
           ))}
         </div>
+
+        {/* Bookings Tab */}
+        {activeTab === "bookings" && (
+          <div className="bg-white rounded-2xl shadow-sm p-6">
+            <h2 className="text-xl font-serif text-brand-brown mb-4">Booking Requests</h2>
+            {bookings.length === 0 ? (
+              <p className="text-brand-brown/50">No booking requests yet.</p>
+            ) : (
+              <div className="space-y-3">
+                {bookings.map((b) => (
+                  <div key={b.id} className="p-4 rounded-lg border border-brand-brown/10">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="font-medium text-brand-brown">{b.name}</p>
+                        <p className="text-sm text-brand-brown/60">{b.email}</p>
+                        {b.phone && <p className="text-sm text-brand-brown/60">{b.phone}</p>}
+                        <p className="text-sm text-brand-brown/60 mt-1">
+                          {b.sessionType} &middot; {b.preferredDate} at {b.preferredTime}
+                        </p>
+                        {b.therapistPreference && b.therapistPreference !== "No preference" && (
+                          <p className="text-xs text-brand-brown/50">Therapist: {b.therapistPreference}</p>
+                        )}
+                        {b.notes && <p className="text-xs text-brand-brown/50 mt-1">Notes: {b.notes}</p>}
+                        <p className="text-xs text-brand-brown/40 mt-1">
+                          Requested {new Date(b.createdAt).toLocaleDateString("en-IN")}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          b.status === "confirmed" ? "bg-green-100 text-green-700"
+                          : b.status === "cancelled" ? "bg-red-100 text-red-700"
+                          : "bg-yellow-100 text-yellow-700"
+                        }`}>
+                          {b.status}
+                        </span>
+                        {b.status === "pending" && (
+                          <>
+                            <button
+                              onClick={() => acceptBooking(b)}
+                              className="px-3 py-1 text-xs font-medium bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                            >
+                              Accept
+                            </button>
+                            <button
+                              onClick={() => declineBooking(b)}
+                              className="px-3 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+                            >
+                              Decline
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Patients Tab */}
         {activeTab === "patients" && (

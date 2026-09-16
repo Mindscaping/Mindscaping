@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import TeamSection from "@/components/sections/TeamSection";
-import { getTeamMembers } from "@/lib/content";
+import { getMergedTeamData } from "@/lib/team-sync";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Our Team",
@@ -8,6 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default async function TeamPage() {
-  const members = await getTeamMembers();
+  const members = await getMergedTeamData();
   return <div className="pt-24"><TeamSection members={members} /></div>;
 }

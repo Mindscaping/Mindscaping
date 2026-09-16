@@ -10,6 +10,7 @@ interface TeamMember {
   bio?: string;
   photo?: string;
   order?: number;
+  hasAccount?: boolean;
 }
 
 interface Props {
@@ -50,7 +51,12 @@ export default function TeamSection({ members }: Props) {
                   )}
                 </div>
                 <div className="p-4 sm:p-5">
-                  <p className="font-serif text-lg font-medium text-brand-brown mb-1">{m.name}</p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="font-serif text-lg font-medium text-brand-brown">{m.name}</p>
+                    {m.hasAccount && (
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-100 text-green-600 text-[10px]" title="Available for messaging">✓</span>
+                    )}
+                  </div>
                   {m.role && <p className="text-xs tracking-widest uppercase text-brand-taupe mb-1">{m.role}</p>}
                   {m.credentials && (
                     <p className="font-serif italic text-sm text-brand-taupe mt-1">{m.credentials}</p>

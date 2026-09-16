@@ -171,8 +171,17 @@ export default function MessagesContent() {
           <p className="text-brand-brown/50">Loading conversations...</p>
         ) : conversations.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
-            <p className="text-brand-brown/50 mb-2">No conversations yet</p>
-            <p className="text-sm text-brand-brown/40">Start a conversation from your dashboard.</p>
+            <p className="text-4xl mb-3">💬</p>
+            <p className="text-brand-brown font-medium mb-2">No conversations yet</p>
+            <p className="text-sm text-brand-brown/50 mb-5">To start chatting with a therapist, book a session or reach out on WhatsApp.</p>
+            <a
+              href="https://wa.me/918879997299"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-green-600 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-green-700 transition-colors"
+            >
+              Chat on WhatsApp
+            </a>
           </div>
         ) : (
           <div className="bg-white rounded-2xl shadow-sm divide-y divide-brand-brown/10">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -10,6 +10,20 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.user) {
+          router.replace(data.user.role === "clinician" ? "/dashboard/clinician" : "/dashboard/patient");
+        } else {
+          setCheckingAuth(false);
+        }
+      })
+      .catch(() => setCheckingAuth(false));
+  }, [router]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,6 +44,14 @@ export default function LoginPage() {
     }
 
     router.push(data.role === "clinician" ? "/dashboard/clinician" : "/dashboard/patient");
+  }
+
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center pt-24">
+        <div className="w-8 h-8 border-2 border-brand-brown border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
   }
 
   return (
@@ -62,6 +84,9 @@ export default function LoginPage() {
               required
             />
           </div>
+          <Link href="/contact" className="block text-xs text-brand-brown/50 hover:text-brand-brown text-right -mt-2">
+            Forgot password?
+          </Link>
           <button
             type="submit"
             disabled={loading}

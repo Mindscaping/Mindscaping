@@ -17,6 +17,7 @@ const publicLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
   { href: "/book", label: "Book" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {

@@ -20,11 +20,26 @@ interface Payment {
   session: { id: string; date: string; type: string };
 }
 
+interface Booking {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  sessionType: string;
+  preferredDate: string;
+  preferredTime: string;
+  therapistPreference: string | null;
+  notes: string | null;
+  status: string;
+  createdAt: string;
+}
+
 export default function PatientDashboard() {
   const router = useRouter();
-  const [user, setUser] = useState<{ id: string; name: string; role: string } | null>(null);
+  const [user, setUser] = useState<{ id: string; name: string; role: string; email: string } | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [paymentLoading, setPaymentLoading] = useState<string | null>(null);
   const [message, setMessage] = useState("");
@@ -47,9 +62,11 @@ export default function PatientDashboard() {
     Promise.all([
       fetch("/api/sessions").then((r) => r.json()),
       fetch("/api/payments").then((r) => r.json()),
-    ]).then(([s, p]) => {
+      fetch(`/api/bookings?email=${encodeURIComponent(user.email)}`).then((r) => r.json()),
+    ]).then(([s, p, b]) => {
       setSessions(s.sessions || []);
       setPayments(p.payments || []);
+      setBookings(b.bookings || []);
       setLoading(false);
     });
   }, [user]);
@@ -62,6 +79,13 @@ export default function PatientDashboard() {
   async function handlePay(sessionId: string) {
     setPaymentLoading(sessionId);
     setMessage("");
+
+    const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "";
+    if (!razorpayKey || razorpayKey === "your-razorpay-key-id") {
+      setMessage("Online payments are not yet configured. Please contact us on WhatsApp to complete payment.");
+      setPaymentLoading(null);
+      return;
+    }
 
     try {
       // Create order
@@ -155,6 +179,37 @@ export default function PatientDashboard() {
             <p className="text-sm text-brand-brown/60">Total Paid</p>
             <p className="text-3xl font-serif text-brand-brown mt-1">₹{(totalPaid / 100).toLocaleString("en-IN")}</p>
           </div>
+        </div>
+
+        {/* Bookings */}
+        <div className="bg-white rounded-2xl shadow-sm p-6 mb-6">
+          <h2 className="text-xl font-serif text-brand-brown mb-4">My Bookings</h2>
+          {bookings.length === 0 ? (
+            <p className="text-brand-brown/50">No bookings yet. <Link href="/book" className="text-brand-brown underline">Book a session</Link>.</p>
+          ) : (
+            <div className="space-y-3">
+              {bookings.map((b) => (
+                <div key={b.id} className="p-4 rounded-lg border border-brand-brown/10 flex items-center justify-between">
+                  <div>
+                    <p className="font-medium text-brand-brown capitalize">{b.sessionType} therapy</p>
+                    <p className="text-sm text-brand-brown/60">
+                      {b.preferredDate} at {b.preferredTime}
+                    </p>
+                    <p className="text-xs text-brand-brown/40">
+                      Requested {new Date(b.createdAt).toLocaleDateString("en-IN")}
+                    </p>
+                  </div>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    b.status === "confirmed" ? "bg-green-100 text-green-700"
+                    : b.status === "cancelled" ? "bg-red-100 text-red-700"
+                    : "bg-yellow-100 text-yellow-700"
+                  }`}>
+                    {b.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Upcoming Sessions */}
