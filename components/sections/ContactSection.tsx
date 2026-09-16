@@ -57,15 +57,22 @@ export default function ContactSection() {
             <p className="text-sm leading-relaxed opacity-75">
               Whether you&apos;re looking for individual therapy, a corporate mental wellness programme, or support for your educational institute — we&apos;d love to hear from you.
             </p>
-            <a
-              href="https://wa.me/918879997299"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-6 bg-brand-offwhite text-brand-brown px-8 py-3 rounded-full text-xs tracking-widest uppercase font-medium hover:opacity-85 transition-opacity"
-            >
-              WhatsApp Us
-            </a>
-            {/* ponytail: Calendly link added when account created */}
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="https://wa.me/918879997299"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-brand-offwhite text-brand-brown px-8 py-3 rounded-full text-xs tracking-widest uppercase font-medium hover:opacity-85 transition-opacity"
+              >
+                WhatsApp Us
+              </a>
+              <a
+                href="/book"
+                className="inline-block border border-brand-offwhite/40 text-brand-offwhite px-8 py-3 rounded-full text-xs tracking-widest uppercase font-medium hover:bg-brand-offwhite/10 transition-colors"
+              >
+                Book Online
+              </a>
+            </div>
             <p className="mt-5 text-xs leading-relaxed opacity-50">
               We respond to enquiries Mon–Sat, 9 AM–9 PM. Sessions are available Mon–Fri, 10 AM–7 PM. All conversations are completely confidential.
             </p>

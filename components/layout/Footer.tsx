@@ -5,7 +5,7 @@ export default function Footer() {
         Mind<span className="italic text-brand-light-taupe">scaping</span>
       </p>
       <p className="text-xs tracking-wide opacity-40">
-        &copy; 2024 Mindscaping &middot; UDYAM-MH-33-0518142 &middot; Mindful Healing
+        Mindscaping &middot; UDYAM-MH-33-0518142 &middot; Mindful Healing
       </p>
       <p className="text-xs tracking-wide opacity-40">Mumbai, India</p>
     </footer>

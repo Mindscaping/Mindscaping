@@ -35,7 +35,7 @@ export default function TeamSection({ members }: Props) {
 
         {members.length > 0 && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-            {members.map((m, idx) => (
+            {members.map((m) => (
               <div key={m.name} className="reveal bg-brand-offwhite rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all">
                 <div className="aspect-[3/4] relative bg-gradient-to-br from-brand-brown/15 to-brand-taupe/25">
                   {m.photo ? (

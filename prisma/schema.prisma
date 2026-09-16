@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         String    // "clinician" | "patient"
+  phone        String?
+  createdAt    DateTime  @default(now())
+
+  sessionsAsClinician Session[] @relation("ClinicianSessions")
+  sessionsAsPatient   Session[] @relation("PatientSessions")
+  notesWritten        Note[]    @relation("ClinicianNotes")
+  notesForPatient     Note[]    @relation("PatientNotes")
+  sentMessages        Message[] @relation("SentMessages")
+  receivedMessages    Message[] @relation("ReceivedMessages")
+  payments            Payment[]
+}
+
+model Session {
+  id          String    @id @default(cuid())
+  clinicianId String
+  patientId   String
+  date        DateTime
+  type        String   // individual, couples, family, group, corporate, school
+  status      String    @default("scheduled") // scheduled, completed, cancelled
+  createdAt   DateTime  @default(now())
+
+  clinician User      @relation("ClinicianSessions", fields: [clinicianId], references: [id])
+  patient   User      @relation("PatientSessions", fields: [patientId], references: [id])
+  notes     Note[]
+  payment   Payment?
+}
+
+model Booking {
+  id                 String   @id @default(cuid())
+  name               String
+  email              String
+  phone              String
+  sessionType        String
+  preferredDate      String
+  preferredTime      String
+  therapistPreference String?
+  notes              String?
+  status             String   @default("pending") // pending, confirmed, cancelled
+  createdAt          DateTime @default(now())
+}
+
+model Note {
+  id          String   @id @default(cuid())
+  sessionId   String?
+  clinicianId String
+  patientId   String
+  type        String   // "session" | "patient"
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  session   Session? @relation(fields: [sessionId], references: [id])
+  clinician User     @relation("ClinicianNotes", fields: [clinicianId], references: [id])
+  patient   User     @relation("PatientNotes", fields: [patientId], references: [id])
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  senderId   String
+  receiverId String
+  content    String
+  read       Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  sender   User @relation("SentMessages", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id])
+}
+
+model Payment {
+  id                String   @id @default(cuid())
+  patientId         String
+  sessionId         String   @unique
+  razorpayOrderId   String
+  razorpayPaymentId String?
+  amount            Int      // in paise
+  currency          String   @default("INR")
+  status            String   @default("created") // created, captured, failed
+  createdAt         DateTime @default(now())
+
+  patient User    @relation(fields: [patientId], references: [id])
+  session Session @relation(fields: [sessionId], references: [id])
+}

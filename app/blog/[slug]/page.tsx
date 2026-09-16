@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Markdown from "react-markdown";
 import { getPost, getPosts } from "@/lib/content";
 
 interface Props {
@@ -74,7 +75,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       {post.content && (
         <div className="prose prose-brand max-w-none text-sm leading-relaxed text-brand-brown/80">
-          {post.content}
+          <Markdown>{post.content}</Markdown>
         </div>
       )}
     </article>

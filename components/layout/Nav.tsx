@@ -1,20 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+interface User {
+  id: string;
+  name: string;
+  role: string;
+}
 
-const links = [
+const publicLinks = [
   { href: "/#approach", label: "Our Approach" },
   { href: "/team", label: "Team" },
   { href: "/gallery", label: "Gallery" },
   { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
+  { href: "/book", label: "Book" },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then((data) => setUser(data.user))
+      .catch(() => {});
+  }, []);
+
+  async function handleLogout() {
+    await fetch("/api/auth/logout", { method: "POST" });
+    setUser(null);
+    window.location.href = "/";
+  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 sm:px-16 py-3 bg-brand-offwhite/88 backdrop-blur-md border-b border-brand-brown/10">
@@ -32,7 +52,7 @@ export default function Nav() {
 
       {/* Desktop nav */}
       <div className="hidden md:flex items-center gap-6">
-        {links.map((l) => (
+        {publicLinks.map((l) => (
           <Link
             key={l.href}
             href={l.href}
@@ -49,12 +69,38 @@ export default function Nav() {
         >
           Research
         </a>
-        <Link
-          href="/contact"
-          className="bg-brand-brown text-brand-offwhite px-5 py-2.5 rounded-full text-xs tracking-widest uppercase font-medium hover:bg-brand-taupe transition-colors"
-        >
-          Reach Out
-        </Link>
+
+        {user ? (
+          <div className="flex items-center gap-3">
+            <Link
+              href="/dashboard"
+              className="text-xs tracking-widest uppercase text-brand-brown/75 hover:text-brand-brown transition-colors"
+            >
+              Dashboard
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="text-xs tracking-widest uppercase text-brand-brown/75 hover:text-brand-brown transition-colors"
+            >
+              Sign Out
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <Link
+              href="/login"
+              className="text-xs tracking-widest uppercase text-brand-brown/75 hover:text-brand-brown transition-colors"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/register"
+              className="bg-brand-brown text-brand-offwhite px-5 py-2.5 rounded-full text-xs tracking-widest uppercase font-medium hover:bg-brand-taupe transition-colors"
+            >
+              Register
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Hamburger */}
@@ -71,7 +117,7 @@ export default function Nav() {
       {/* Mobile menu */}
       {open && (
         <div className="absolute top-full left-0 right-0 bg-brand-offwhite border-b border-brand-brown/10 flex flex-col p-6 gap-4 md:hidden">
-          {links.map((l) => (
+          {publicLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -90,13 +136,41 @@ export default function Nav() {
           >
             Research
           </a>
-          <Link
-            href="/contact"
-            onClick={() => setOpen(false)}
-            className="bg-brand-brown text-brand-offwhite px-5 py-2.5 rounded-full text-xs tracking-widest uppercase text-center"
-          >
-            Reach Out
-          </Link>
+
+          {user ? (
+            <>
+              <Link
+                href="/dashboard"
+                onClick={() => setOpen(false)}
+                className="text-sm tracking-widest uppercase text-brand-brown/75"
+              >
+                Dashboard
+              </Link>
+              <button
+                onClick={() => { setOpen(false); handleLogout(); }}
+                className="text-sm tracking-widest uppercase text-brand-brown/75 text-left"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                onClick={() => setOpen(false)}
+                className="text-sm tracking-widest uppercase text-brand-brown/75"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/register"
+                onClick={() => setOpen(false)}
+                className="bg-brand-brown text-brand-offwhite px-5 py-2.5 rounded-full text-xs tracking-widest uppercase text-center"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       )}
     </nav>

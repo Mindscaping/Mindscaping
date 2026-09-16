@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Jost } from "next/font/google";
 import "@/styles/globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import LiveNotifications from "@/components/sections/LiveNotifications";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -35,10 +36,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+      <head>
+        <script src="https://checkout.razorpay.com/v1/checkout.js" async />
+      </head>
       <body className="font-sans text-brand-brown bg-brand-offwhite antialiased">
         <Nav />
         <main>{children}</main>
         <Footer />
+        <LiveNotifications />
       </body>
     </html>
   );

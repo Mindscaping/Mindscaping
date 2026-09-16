@@ -36,6 +36,10 @@ yarn-error.log*
 # keep .env.example
 !.env.example
 
+# prisma
+*.db
+*.db-journal
+
 # vercel
 .vercel
 
