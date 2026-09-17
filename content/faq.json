@@ -1,26 +1,28 @@
-[
-  {
-    "answer": "Therapy is a process, not a destination, where you work with a professional to navigate life's challenges. It provides a safe space to identify and change negative thought patterns, manage intense emotions, and build resilience.",
-    "question": "What is therapy, and how does it help?"
-  },
-  {
-    "answer": "We begin with thorough clinical assessments to ensure our interventions are structured, goal-oriented, and effective. This helps us create a scientifically-backed treatment plan grounded in proven therapeutic frameworks tailored to your unique journey.",
-    "question": "What should I expect from my first session?"
-  },
-  {
-    "answer": "While we are grounded in clinical excellence, we go beyond \"talk therapy\" by using games and art as functional \"micro-labs\". This tactile, experiential approach allows you to practice skills like strategy and patience in real-time rather than just discussing them abstractly.",
-    "question": "How is Mindscaping different from traditional therapy?"
-  },
-  {
-    "answer": "Yes, our practice is dedicated to being both neurodivergent and queer-affirming. Our founder and team are committed to creating inclusive healing spaces rooted in authenticity, safety, and respect for every individual's unique identity.",
-    "question": "Is Mindscaping inclusive for everyone?"
-  },
-  {
-    "answer": "Not at all. We use these tools because they provide a low-pressure, sensory-rich path to mindfulness and emotional processing. We use structured forms like Mandalas or games to reduce anxiety and provide a gentle focus \u2014 no prior skill needed.",
-    "question": "Do I need to be \"good\" at games or art to participate?"
-  },
-  {
-    "answer": "You can take the first step toward well-being by contacting us on WhatsApp at +91-8879997299.",
-    "question": "How do I get started?"
-  }
-]
+{
+  "items": [
+    {
+      "answer": "Therapy is a process, not a destination, where you work with a professional to navigate life's challenges. It provides a safe space to identify and change negative thought patterns, manage intense emotions, and build resilience.",
+      "question": "What is therapy, and how does it help?"
+    },
+    {
+      "answer": "We begin with thorough clinical assessments to ensure our interventions are structured, goal-oriented, and effective. This helps us create a scientifically-backed treatment plan grounded in proven therapeutic frameworks tailored to your unique journey.",
+      "question": "What should I expect from my first session?"
+    },
+    {
+      "answer": "While we are grounded in clinical excellence, we go beyond \"talk therapy\" by using games and art as functional \"micro-labs\". This tactile, experiential approach allows you to practice skills like strategy and patience in real-time rather than just discussing them abstractly.",
+      "question": "How is Mindscaping different from traditional therapy?"
+    },
+    {
+      "answer": "Yes, our practice is dedicated to being both neurodivergent and queer-affirming. Our founder and team are committed to creating inclusive healing spaces rooted in authenticity, safety, and respect for every individual's unique identity.",
+      "question": "Is Mindscaping inclusive for everyone?"
+    },
+    {
+      "answer": "Not at all. We use these tools because they provide a low-pressure, sensory-rich path to mindfulness and emotional processing. We use structured forms like Mandalas or games to reduce anxiety and provide a gentle focus — no prior skill needed.",
+      "question": "Do I need to be \"good\" at games or art to participate?"
+    },
+    {
+      "answer": "You can take the first step toward well-being by contacting us on WhatsApp at +91-8879997299.",
+      "question": "How do I get started?"
+    }
+  ]
+}

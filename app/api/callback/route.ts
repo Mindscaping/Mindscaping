@@ -27,15 +27,16 @@ export async function GET(req: NextRequest) {
   return new NextResponse(
     `<html><body><script>
       (function() {
-        var token = ${token};
-        function receiveMessage(e) {
-          if (e.data && e.data.command === "authorizing") {
-            window.opener.postMessage({ command: "authorization", token: token }, "*");
-            window.close();
-          }
-        }
+        var token = ${JSON.stringify(data.access_token)};
+        var receiveMessage = function(message) {
+          window.opener.postMessage(
+            'authorization:github:success:' + JSON.stringify({ token: token }),
+            message.origin
+          );
+          window.removeEventListener("message", receiveMessage, false);
+        };
         window.addEventListener("message", receiveMessage, false);
-        window.opener.postMessage({ command: "authorizing" }, "*");
+        window.opener.postMessage("authorizing:github", "*");
       })();
     </script></body></html>`,
     { headers: { "Content-Type": "text/html; charset=utf-8" } },

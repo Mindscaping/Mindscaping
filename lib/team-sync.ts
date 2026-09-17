@@ -16,7 +16,8 @@ interface CMSMember {
 export function getTeamData(): CMSMember[] {
   try {
     const raw = readFileSync(join(process.cwd(), "content", "team.json"), "utf-8");
-    return JSON.parse(raw);
+    const data = JSON.parse(raw);
+    return data.members || data;
   } catch {
     return [];
   }

@@ -13,56 +13,65 @@ public_folder: /images
 collections:
   - name: team
     label: Team Members
-    folder: content
-    extension: json
-    format: json
-    create: true
-    slug: "team"
-    identifier_field: name
-    fields:
-      - { name: name, label: Name, widget: string }
-      - { name: role, label: Role, widget: string, required: false }
-      - { name: credentials, label: Credentials, widget: string, required: false }
-      - { name: bio, label: Bio, widget: text, required: false }
-      - { name: photo, label: Photo, widget: image, required: false }
-      - { name: order, label: Order, widget: number, required: false }
+    files:
+      - label: "Team Members"
+        name: "team"
+        file: "content/team.json"
+        fields:
+          - name: members
+            label: Members
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role, widget: string, required: false }
+              - { name: credentials, label: Credentials, widget: string, required: false }
+              - { name: bio, label: Bio, widget: text, required: false }
+              - { name: photo, label: Photo, widget: image, required: false }
+              - { name: order, label: Order, widget: number, required: false }
 
   - name: faq
     label: FAQs
-    folder: content
-    extension: json
-    format: json
-    create: true
-    slug: "faq"
-    identifier_field: question
-    fields:
-      - { name: question, label: Question, widget: string }
-      - { name: answer, label: Answer, widget: text }
+    files:
+      - label: "FAQs"
+        name: "faq"
+        file: "content/faq.json"
+        fields:
+          - name: items
+            label: FAQ Items
+            widget: list
+            fields:
+              - { name: question, label: Question, widget: string }
+              - { name: answer, label: Answer, widget: text }
 
   - name: testimonials
     label: Testimonials
-    folder: content
-    extension: json
-    format: json
-    create: true
-    slug: "testimonials"
-    identifier_field: quote
-    fields:
-      - { name: name, label: Name, widget: string, required: false }
-      - { name: quote, label: Quote, widget: text }
-      - { name: featured, label: Featured, widget: boolean, default: true, required: false }
+    files:
+      - label: "Testimonials"
+        name: "testimonials"
+        file: "content/testimonials.json"
+        fields:
+          - name: items
+            label: Testimonials
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string, required: false }
+              - { name: quote, label: Quote, widget: text }
+              - { name: featured, label: Featured, widget: boolean, default: true, required: false }
 
   - name: gallery
     label: Gallery Images
-    folder: content
-    extension: json
-    format: json
-    create: true
-    slug: "gallery"
-    fields:
-      - { name: caption, label: Caption, widget: string, required: false }
-      - { name: src, label: Image, widget: image }
-      - { name: order, label: Order, widget: number, required: false }
+    files:
+      - label: "Gallery"
+        name: "gallery"
+        file: "content/gallery.json"
+        fields:
+          - name: images
+            label: Images
+            widget: list
+            fields:
+              - { name: caption, label: Caption, widget: string, required: false }
+              - { name: src, label: Image, widget: image }
+              - { name: order, label: Order, widget: number, required: false }
 
   - name: blog
     label: Blog Posts

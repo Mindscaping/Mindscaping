@@ -9,19 +9,23 @@ function readJSON(file: string) {
 }
 
 export function getTeamMembers() {
-  return readJSON("team.json");
+  const data = readJSON("team.json");
+  return data.members || data;
 }
 
 export function getFaqs() {
-  return readJSON("faq.json");
+  const data = readJSON("faq.json");
+  return data.items || data;
 }
 
 export function getTestimonials() {
-  return readJSON("testimonials.json");
+  const data = readJSON("testimonials.json");
+  return data.items || data;
 }
 
 export function getGalleryImages() {
-  return readJSON("gallery.json");
+  const data = readJSON("gallery.json");
+  return data.images || data;
 }
 
 // ── Blog posts ──

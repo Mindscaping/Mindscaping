@@ -1,22 +1,24 @@
-[
-  {
-    "caption": "Corporate Workshop",
-    "order": 1,
-    "src": "/images/gallery-1.jpg"
-  },
-  {
-    "caption": "Corporate Workshop",
-    "order": 2,
-    "src": "/images/gallery-2.jpg"
-  },
-  {
-    "caption": "College Seminar",
-    "order": 3,
-    "src": "/images/gallery-3.jpg"
-  },
-  {
-    "caption": "College Seminar",
-    "order": 4,
-    "src": "/images/gallery-4.jpg"
-  }
-]
+{
+  "images": [
+    {
+      "caption": "Corporate Workshop",
+      "order": 1,
+      "src": "/images/gallery-1.jpg"
+    },
+    {
+      "caption": "Corporate Workshop",
+      "order": 2,
+      "src": "/images/gallery-2.jpg"
+    },
+    {
+      "caption": "College Seminar",
+      "order": 3,
+      "src": "/images/gallery-3.jpg"
+    },
+    {
+      "caption": "College Seminar",
+      "order": 4,
+      "src": "/images/gallery-4.jpg"
+    }
+  ]
+}
