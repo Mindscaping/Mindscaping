@@ -1,0 +1,11 @@
+{
+  "heading": "Privacy Policy",
+  "lastUpdated": "January 2026",
+  "sections": [
+    { "title": "Information We Collect", "content": "We collect personal information you voluntarily provide, including name, email, phone number, and health-related information necessary for therapy. We also collect usage data through analytics." },
+    { "title": "How We Use Your Information", "content": "Your information is used solely to provide therapy services, schedule appointments, and improve our services. We do not sell or share personal information with third parties for marketing purposes." },
+    { "title": "Data Security", "content": "We implement industry-standard security measures to protect your personal information. All session notes and health records are stored securely and accessible only to authorized clinicians." },
+    { "title": "Your Rights", "content": "You have the right to access, correct, or delete your personal information at any time. You may also withdraw consent for data processing. Contact us to exercise these rights." },
+    { "title": "Contact Us", "content": "For privacy-related queries, contact us at mindscaping.in@gmail.com or call +91 88799 97299." }
+  ]
+}

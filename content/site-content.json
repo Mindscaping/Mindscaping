@@ -1,0 +1,55 @@
+{
+  "hero": {
+    "tagline": "Mindful Healing · Accessible Care",
+    "heading": "Healing that begins with you.",
+    "subtitle": "Affordable, high-quality psychological support for individuals from all walks of life — grounded in empathy, evidence, and authenticity.",
+    "ctaPrimary": "Begin Your Healing Journey",
+    "ctaSecondary": "Learn More",
+    "quote": "Mental health is not a destination, but a process.",
+    "specialisation": "CBT · DBT · Trauma-Informed",
+    "spaces": "Individual · Corporate · Schools",
+    "approach": "Evidence-Based · Client-Centered · Affirming"
+  },
+  "about": {
+    "heading": "Making therapy accessible for everyone.",
+    "paragraphs": [
+      "Mindscaping is a mental health initiative dedicated to making therapy accessible to a wider audience. Our goal is to provide high-quality, affordable psychological support to individuals from all walks of life.",
+      "We are driven by a client-centered approach, prioritizing accessibility, empathy, and holistic well-being. We value inclusivity, continuous learning, and personalized care, ensuring that mental health support is tailored to each individual's unique needs.",
+      "Our team excels in patient assessments, diagnosis, and treatment for a wide range of concerns, including stress, anxiety, depression, trauma, and relationship issues. With a strong foundation in evidence-based practices, we are dedicated to helping clients achieve emotional resilience.",
+      "Beyond individual care, Mindscaping is committed to fostering mental wellness at a systemic level — building a sustainable mental health ecosystem for educational institutes, colleges, and corporate environments."
+    ],
+    "missionTitle": "Building an Ecosystem for Growth",
+    "missionText": "We aim to support and build a sustainable mental health ecosystem for educational institutes, colleges, and corporate environments — ensuring that professional and educational spaces become sanctuaries for emotional resilience and collective well-being."
+  },
+  "values": {
+    "heading": "What guides us.",
+    "intro": "At Mindscaping, we believe that mental health is not a standalone experience but a deeply integrated part of a person's entire psychological and social world.",
+    "items": [
+      { "num": "01", "title": "Evidence-Based Clinical Care", "text": "We rely on proven, scientifically-backed therapeutic modalities such as Cognitive Behavioral Therapy (CBT) and Dialectical Behavior Therapy (DBT). Every treatment plan is grounded in clinical assessments to ensure our interventions are effective, structured, and goal-oriented." },
+      { "num": "02", "title": "Holistic Psychological Integration", "text": "While our focus is psychological, we view the individual as a whole. We look at the interplay between a client's emotional state, cognitive patterns, and their environment. We don't just treat symptoms; we work to understand the underlying narratives and social contexts." },
+      { "num": "03", "title": "Ecosystemic Growth", "text": "We believe that healing happens best in supportive environments. Our mission extends beyond the therapy room to building and sustaining mental health ecosystems within educational institutes, colleges, and corporate organizations — fostering resilience at the institutional level." },
+      { "num": "04", "title": "Inclusive & Affirming Spaces", "text": "Our values are rooted in safety, authenticity, and clinical rigour. We are dedicated to providing evidence-based, client-centered care that is neurodivergent and queer-affirming — ensuring that individuals from all walks of life feel seen, respected, and supported in their unique identities." }
+    ]
+  },
+  "approach": {
+    "heading": "Where play meets clinical rigour.",
+    "description": "At Mindscaping, we go beyond traditional talk therapy by using games like Azul and Splendor, alongside structured art like Mandalas, as functional \"micro-labs\". Whether in person or via interactive screen-sharing, you aren't just discussing skills like strategy and patience — you are living them in real-time.",
+    "description2": "By combining evidence-based modalities with these tactile, creative tools, we help you bridge the gap between the therapy room and your daily life.",
+    "quote": "In a game of Splendor or Azul, you aren't just discussing strategy — you are living it.",
+    "ctaText": "Get in touch to learn more",
+    "skills": [
+      { "icon": "🧩", "title": "Cognitive Agility", "text": "Strengthen working memory and executive functioning through strategic resource management in games and puzzles." },
+      { "icon": "🎯", "title": "Emotional Regulation", "text": "Practice navigating \"unlucky\" shifts in Azul, Uno or even Snakes and Ladders with grace and humor." },
+      { "icon": "🌀", "title": "Sensory Mindfulness", "text": "Use Mandalas as repetitive, \"contained\" spaces to anchor focus, reduce anxiety, and quiet mental noise." },
+      { "icon": "💻", "title": "Online Integration", "text": "Digital sessions using virtual boards and screen-sharing ensure the same high-quality care as our in-person work." }
+    ]
+  },
+  "process": {
+    "heading": "Your journey, step by step.",
+    "steps": [
+      { "num": "01", "icon": "📋", "title": "Consent & Intake", "text": "Once you reach out, a consent form is sent directly to your email. This helps us understand your needs, ensures transparency, and establishes a foundation of trust before your first session." },
+      { "num": "02", "icon": "✅", "title": "Booking Confirmation", "text": "After reviewing and returning your consent form, we confirm your booking. This secures your slot and allows us to prepare for your session in advance." },
+      { "num": "03", "icon": "🌿", "title": "Your Session", "text": "You are all set. Your session is scheduled with your counselor at a time that works for you — a dedicated, confidential space where your healing journey truly begins." }
+    ]
+  }
+}
