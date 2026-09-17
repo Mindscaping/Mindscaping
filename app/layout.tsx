@@ -5,6 +5,7 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import LiveNotifications from "@/components/sections/LiveNotifications";
+import { getFooterContent } from "@/lib/content";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -34,7 +35,9 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const footerContent = await getFooterContent();
+
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
       <head>
@@ -43,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans text-brand-brown bg-brand-offwhite antialiased">
         <Nav />
         <main>{children}</main>
-        <Footer />
+        <Footer content={footerContent} />
         <LiveNotifications />
         <Analytics />
       </body>

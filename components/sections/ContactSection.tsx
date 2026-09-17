@@ -2,7 +2,19 @@
 
 import { useReveal } from "@/hooks/useReveal";
 
-export default function ContactSection() {
+type ContactContent = {
+  heading: string;
+  subheading: string;
+  whatsappText: string;
+  emailText: string;
+  phoneText: string;
+  addressText: string;
+  address: string;
+  hours: string;
+  sessionTimings: string;
+};
+
+export default function ContactSection({ content }: { content?: ContactContent }) {
   const ref = useReveal();
 
   return (
@@ -10,13 +22,15 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto px-6">
         <p className="reveal text-xs tracking-[0.2em] uppercase text-brand-taupe mb-4">Contact Us</p>
         <h2 className="reveal font-serif text-[clamp(2.2rem,4vw,3.4rem)] font-light leading-tight text-brand-brown">
-          Our doors are <em className="italic text-brand-taupe">open.</em>
+          {(content?.heading || "Our doors are open.").split("open").map((part, i) =>
+            i === 0 ? <>{part}<em className="italic text-brand-taupe">open.</em></> : <>{part}</>
+          )}
         </h2>
 
         <div className="reveal mt-14 grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-20">
           <div>
             <p className="text-[0.98rem] leading-relaxed text-brand-brown/80 font-light mb-8">
-              In case of queries, don&apos;t hesitate to reach out. We are here to support your mental health journey in a comfortable and welcoming environment.
+              {content?.subheading || "In case of queries, don\u2019t hesitate to reach out. We are here to support your mental health journey in a comfortable and welcoming environment."}
             </p>
 
             <div className="flex items-center gap-4 mb-5">
@@ -25,7 +39,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <strong className="block text-sm text-brand-brown">Contact Us</strong>
-                <span className="text-sm text-brand-brown/80 font-light">+91-8879997299</span>
+                <span className="text-sm text-brand-brown/80 font-light">{content?.phoneText || "+91-8879997299"}</span>
               </div>
             </div>
 
@@ -35,7 +49,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <strong className="block text-sm text-brand-brown">Enquiries</strong>
-                <span className="text-sm text-brand-brown/80 font-light">Mon – Sat · 9:00 AM to 9:00 PM</span>
+                <span className="text-sm text-brand-brown/80 font-light">{content?.hours || "Mon – Sat · 9:00 AM to 9:00 PM"}</span>
               </div>
             </div>
 
@@ -45,7 +59,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <strong className="block text-sm text-brand-brown">Sessions</strong>
-                <span className="text-sm text-brand-brown/80 font-light">Mon – Fri · 10:00 AM to 7:00 PM</span>
+                <span className="text-sm text-brand-brown/80 font-light">{content?.sessionTimings || "Mon – Fri · 10:00 AM to 7:00 PM"}</span>
                 <span className="block text-xs text-brand-brown/60 font-light mt-0.5">Weekend sessions subject to counselor availability</span>
               </div>
             </div>
@@ -64,7 +78,7 @@ export default function ContactSection() {
                 rel="noopener noreferrer"
                 className="inline-block bg-brand-offwhite text-brand-brown px-8 py-3 rounded-full text-xs tracking-widest uppercase font-medium hover:opacity-85 transition-opacity"
               >
-                WhatsApp Us
+                {content?.whatsappText || "WhatsApp Us"}
               </a>
               <a
                 href="/book"

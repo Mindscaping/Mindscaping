@@ -3,7 +3,19 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 
-export default function Hero() {
+type HeroContent = {
+  tagline: string;
+  heading: string;
+  subtitle: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  quote: string;
+  specialisation: string;
+  spaces: string;
+  approach: string;
+};
+
+export default function Hero({ content }: { content?: HeroContent }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,27 +37,37 @@ export default function Hero() {
         <div className="absolute -bottom-20 -right-20 w-[400px] h-[400px] rounded-full bg-gradient-to-br from-brand-taupe/10 to-transparent pointer-events-none" />
 
         <p className="fade-in text-xs tracking-[0.18em] uppercase text-brand-taupe mb-8 opacity-0 transition-opacity duration-700">
-          Mindful Healing &middot; Accessible Care
+          {content?.tagline || "Mindful Healing &middot; Accessible Care"}
         </p>
         <h1 className="fade-in font-serif text-[clamp(3.2rem,6vw,5.5rem)] leading-[1.05] font-light text-brand-brown opacity-0 transition-opacity duration-700">
-          Healing that <em className="italic text-brand-taupe">begins</em>
-          <br /> with you.
+          {(() => {
+            const text = content?.heading || "Healing that begins with you.";
+            const parts = text.split(/(begins)/);
+            return parts.map((part, i) =>
+              part === "begins" ? (
+                <em key={i} className="italic text-brand-taupe">{part}</em>
+              ) : (
+                <span key={i}>{part}</span>
+              )
+            );
+          })()}
+          <br />{" "}
         </h1>
         <p className="fade-in mt-6 text-base leading-relaxed text-brand-brown/80 font-light max-w-[460px] opacity-0 transition-opacity duration-700">
-          Affordable, high-quality psychological support for individuals from all walks of life — grounded in empathy, evidence, and authenticity.
+          {content?.subtitle || "Affordable, high-quality psychological support for individuals from all walks of life — grounded in empathy, evidence, and authenticity."}
         </p>
         <div className="fade-in mt-10 flex flex-wrap gap-4 opacity-0 transition-opacity duration-700">
           <Link
             href="/contact"
             className="bg-brand-brown text-brand-offwhite px-8 py-3 rounded-full text-xs tracking-[0.1em] uppercase hover:bg-brand-taupe hover:-translate-y-0.5 transition-all"
           >
-            Begin Your Healing Journey
+            {content?.ctaPrimary || "Begin Your Healing Journey"}
           </Link>
           <Link
             href="/#about"
             className="border border-brand-brown text-brand-brown px-8 py-3 rounded-full text-xs tracking-[0.1em] uppercase hover:bg-brand-brown hover:text-brand-offwhite hover:-translate-y-0.5 transition-all"
           >
-            Learn More
+            {content?.ctaSecondary || "Learn More"}
           </Link>
         </div>
       </div>
@@ -68,22 +90,22 @@ export default function Hero() {
 
         <div className="relative z-10 text-center text-brand-offwhite">
           <p className="font-serif text-2xl sm:text-3xl font-light italic leading-relaxed opacity-90 mb-8">
-            &ldquo;Mental health is not a destination, but a process.&rdquo;
+            &ldquo;{content?.quote || "Mental health is not a destination, but a process."}&rdquo;
           </p>
           <p className="text-xs tracking-[0.2em] uppercase text-brand-light-taupe">Mindscaping &middot; Mumbai</p>
 
           <div className="mt-12 flex flex-col gap-6 w-full">
             <div className="border-t border-white/20 pt-5 flex justify-between items-start">
               <span className="text-xs tracking-widest uppercase opacity-60">Specialisation</span>
-              <span className="font-serif text-lg opacity-90">CBT &middot; DBT &middot; Trauma-Informed</span>
+              <span className="font-serif text-lg opacity-90">{content?.specialisation || "CBT · DBT · Trauma-Informed"}</span>
             </div>
             <div className="border-t border-white/20 pt-5 flex justify-between items-start">
               <span className="text-xs tracking-widest uppercase opacity-60">Spaces</span>
-              <span className="font-serif text-lg opacity-90">Individual &middot; Corporate &middot; Schools</span>
+              <span className="font-serif text-lg opacity-90">{content?.spaces || "Individual · Corporate · Schools"}</span>
             </div>
             <div className="border-t border-white/20 pt-5 flex justify-between items-start">
               <span className="text-xs tracking-widest uppercase opacity-60">Approach</span>
-              <span className="font-serif text-lg opacity-90">Evidence-Based &middot; Client-Centered &middot; Affirming</span>
+              <span className="font-serif text-lg opacity-90">{content?.approach || "Evidence-Based · Client-Centered · Affirming"}</span>
             </div>
           </div>
         </div>

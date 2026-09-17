@@ -28,6 +28,38 @@ export function getGalleryImages() {
   return data.images || data;
 }
 
+export function getSiteContent() {
+  try {
+    return readJSON("site-content.json");
+  } catch {
+    return null;
+  }
+}
+
+export function getFooterContent() {
+  try {
+    return readJSON("site-footer.json");
+  } catch {
+    return null;
+  }
+}
+
+export function getContactContent() {
+  try {
+    return readJSON("site-contact.json");
+  } catch {
+    return null;
+  }
+}
+
+export function getPrivacyContent() {
+  try {
+    return readJSON("site-privacy.json");
+  } catch {
+    return null;
+  }
+}
+
 // ── Blog posts ──
 export function getPosts() {
   const dir = path.join(contentDir, "blog");

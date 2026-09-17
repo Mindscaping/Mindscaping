@@ -2,7 +2,12 @@
 
 import { useReveal } from "@/hooks/useReveal";
 
-const steps = [
+type ProcessContent = {
+  heading: string;
+  steps: { num: string; icon: string; title: string; text: string }[];
+};
+
+const defaultSteps = [
   {
     num: "01",
     icon: "📋",
@@ -23,15 +28,18 @@ const steps = [
   },
 ];
 
-export default function ProcessSection() {
+export default function ProcessSection({ content }: { content?: ProcessContent }) {
   const ref = useReveal();
+  const steps = content?.steps || defaultSteps;
 
   return (
     <section id="process" className="bg-brand-brown py-24" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <p className="reveal text-xs tracking-[0.2em] uppercase text-brand-light-taupe mb-4">How It Works</p>
         <h2 className="reveal font-serif text-[clamp(2.2rem,4vw,3.4rem)] font-light leading-tight text-brand-offwhite">
-          Your journey, <em className="italic text-brand-light-taupe">step by step.</em>
+          {(content?.heading || "Your journey, step by step.").split("step by step").map((part, i) =>
+            i === 0 ? <>{part}<em className="italic text-brand-light-taupe">step by step.</em></> : <>{part}</>
+          )}
         </h2>
         <div className="reveal mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
           {steps.map((s) => (
