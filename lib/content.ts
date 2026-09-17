@@ -38,6 +38,10 @@ export function getGalleryImages() {
   return data.images || data;
 }
 
+export function getSchoolCounselling() {
+  return tryJSON("school-counselling.json");
+}
+
 // ── Homepage sections ──
 
 export function getHeroContent() {

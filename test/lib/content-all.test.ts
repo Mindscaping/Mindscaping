@@ -15,6 +15,7 @@ vi.mock("fs", async (importOriginal) => {
     "footer.json": JSON.stringify({ aboutText: "Footer", email: "test@test.com" }),
     "contact.json": JSON.stringify({ heading: "Contact", subheading: "Sub" }),
     "privacy.json": JSON.stringify({ heading: "Privacy", sections: [{ title: "S1", content: "C1" }] }),
+    "school-counselling.json": JSON.stringify({ heading: "School Counselling", subtitle: "Sub", description: "Desc", members: [] }),
   };
 
   const mockReadFile = vi.fn().mockImplementation((p: string) => {
@@ -44,6 +45,7 @@ import {
   getFooterContent,
   getContactContent,
   getPrivacyContent,
+  getSchoolCounselling,
 } from "@/lib/content";
 
 describe("content lib — all functions", () => {
@@ -114,5 +116,12 @@ describe("content lib — all functions", () => {
     expect(privacy).toBeTruthy();
     expect(privacy.sections).toHaveLength(1);
     expect(privacy.sections[0].title).toBe("S1");
+  });
+
+  it("getSchoolCounselling returns school counselling data", () => {
+    const sc = getSchoolCounselling();
+    expect(sc).toBeTruthy();
+    expect(sc.heading).toBe("School Counselling");
+    expect(sc.members).toHaveLength(0);
   });
 });

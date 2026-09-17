@@ -10,6 +10,8 @@ const CONFIG = `backend:
 media_folder: public/images
 public_folder: /images
 
+local_backend: true
+
 collections:
   # ── Homepage ──
   - name: homepage
@@ -183,6 +185,22 @@ collections:
               - { name: caption, label: Caption, widget: string, required: false }
               - { name: src, label: Image, widget: image }
               - { name: order, label: Order, widget: number, required: false }
+
+      - label: "School Counselling"
+        name: school-counselling
+        file: content/school-counselling.json
+        fields:
+          - { name: heading, label: Heading, widget: string }
+          - { name: subtitle, label: Subtitle, widget: string }
+          - { name: description, label: Description, widget: text }
+          - name: members
+            label: Counsellors
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role, widget: string }
+              - { name: bio, label: Bio, widget: text, required: false }
+              - { name: photo, label: Photo, widget: image, required: false }
 
   # ── Blog ──
   - name: blog
