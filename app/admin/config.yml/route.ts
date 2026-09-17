@@ -1,7 +1,10 @@
-backend:
+import { NextRequest, NextResponse } from "next/server";
+
+const CONFIG = `backend:
   name: github
   repo: Mindscaping/Mindscaping
   branch: main
+  base_url: ORIGIN_PLACEHOLDER
   auth_endpoint: api/auth
 
 media_folder: public/images
@@ -74,4 +77,16 @@ collections:
       - { name: featuredImage, label: Featured Image, widget: image, required: false }
       - { name: publishedAt, label: Published At, widget: datetime }
       - { name: author, label: Author, widget: string, default: "Mindscaping", required: false }
-      - { name: body, label: Body, widget: markdown }
+      - { name: body, label: Body, widget: markdown }`;
+
+export function GET(req: NextRequest) {
+  const forwardedHost = req.headers.get("x-forwarded-host");
+  const forwardedProto = req.headers.get("x-forwarded-proto");
+  const origin = forwardedHost
+    ? `${forwardedProto || "https"}://${forwardedHost}`
+    : req.nextUrl.origin;
+  const yaml = CONFIG.replace("ORIGIN_PLACEHOLDER", origin);
+  return new NextResponse(yaml, {
+    headers: { "Content-Type": "text/yaml; charset=utf-8" },
+  });
+}
