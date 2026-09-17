@@ -34,7 +34,7 @@ collections:
         file: content/about.json
         fields:
           - { name: heading, label: Heading, widget: string }
-          - { name: paragraphs, label: Paragraphs, widget: list, field: { widget: string } }
+          - { name: paragraphs, label: Paragraphs, widget: list, field: { name: paragraph, label: Paragraph, widget: string } }
           - { name: missionTitle, label: Mission Title, widget: string }
           - { name: missionText, label: Mission Text, widget: text }
 

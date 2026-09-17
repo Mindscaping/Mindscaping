@@ -25,7 +25,7 @@ export default function AboutSection({ content }: { content?: AboutContent }) {
         <p className="reveal text-xs tracking-[0.2em] uppercase text-brand-taupe mb-6">Home / About Us</p>
         <h2 className="reveal font-serif text-[clamp(2.2rem,4vw,3.4rem)] font-light leading-tight text-brand-brown">
           {(content?.heading || "Making therapy accessible for everyone.").split("accessible").map((part, i) =>
-            i === 0 ? <>{part}<em className="italic text-brand-taupe">accessible</em></> : <>{part}</>
+            i === 0 ? <span key={i}>{part}<em className="italic text-brand-taupe">accessible</em></span> : <span key={i}>{part}</span>
           )}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-20 mt-14">
