@@ -9,26 +9,40 @@ import GallerySection from "@/components/sections/GallerySection";
 import FaqSection from "@/components/sections/FaqSection";
 import ContactSection from "@/components/sections/ContactSection";
 import JsonLd from "@/components/JsonLd";
-import { getTeamMembers, getTestimonials, getGalleryImages, getFaqs, getSiteContent, getFooterContent } from "@/lib/content";
+import {
+  getTeamMembers,
+  getTestimonials,
+  getGalleryImages,
+  getFaqs,
+  getHeroContent,
+  getAboutContent,
+  getValuesContent,
+  getApproachContent,
+  getProcessContent,
+} from "@/lib/content";
 
-// ponytail: fetch all data in one page, pass as props — no layout shifts, no client waterfalls
 export default async function HomePage() {
-  const [teamMembers, testimonials, galleryImages, faqs, siteContent] = await Promise.all([
-    getTeamMembers(),
-    getTestimonials(),
-    getGalleryImages(),
-    getFaqs(),
-    getSiteContent(),
-  ]);
+  const [teamMembers, testimonials, galleryImages, faqs, hero, about, values, approach, process] =
+    await Promise.all([
+      getTeamMembers(),
+      getTestimonials(),
+      getGalleryImages(),
+      getFaqs(),
+      getHeroContent(),
+      getAboutContent(),
+      getValuesContent(),
+      getApproachContent(),
+      getProcessContent(),
+    ]);
 
   return (
     <>
       <JsonLd />
-      <Hero content={siteContent?.hero} />
-      <AboutSection content={siteContent?.about} />
-      <ValuesSection content={siteContent?.values} />
-      <ApproachSection content={siteContent?.approach} />
-      <ProcessSection content={siteContent?.process} />
+      <Hero content={hero} />
+      <AboutSection content={about} />
+      <ValuesSection content={values} />
+      <ApproachSection content={approach} />
+      <ProcessSection content={process} />
       <TeamSection members={teamMembers} />
       <TestimonialsSection testimonials={testimonials} />
       <GallerySection images={galleryImages} />

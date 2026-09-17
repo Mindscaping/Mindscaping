@@ -7,10 +7,14 @@ vi.mock("fs", async (importOriginal) => {
     "faq.json": JSON.stringify({ items: [{ question: "Q1?", answer: "A1" }] }),
     "testimonials.json": JSON.stringify({ items: [{ quote: "Great!", featured: true }] }),
     "gallery.json": JSON.stringify({ images: [{ caption: "Photo", src: "/img.jpg" }] }),
-    "site-content.json": JSON.stringify({ hero: { heading: "Test" }, about: { heading: "About" }, values: { heading: "Values" }, approach: { heading: "Approach" }, process: { heading: "Process" } }),
-    "site-footer.json": JSON.stringify({ aboutText: "Footer", email: "a@b.com" }),
-    "site-contact.json": JSON.stringify({ heading: "Contact", subheading: "Sub" }),
-    "site-privacy.json": JSON.stringify({ heading: "Privacy", sections: [] }),
+    "hero.json": JSON.stringify({ heading: "Hero", tagline: "Tag", subtitle: "Sub" }),
+    "about.json": JSON.stringify({ heading: "About", paragraphs: ["P1", "P2"], missionTitle: "Mission", missionText: "Text" }),
+    "values.json": JSON.stringify({ heading: "Values", intro: "Intro", items: [{ num: "01", title: "V1", text: "T1" }] }),
+    "approach.json": JSON.stringify({ heading: "Approach", description: "Desc", skills: [{ icon: "x", title: "S1", text: "T1" }] }),
+    "process.json": JSON.stringify({ heading: "Process", steps: [{ num: "01", icon: "y", title: "Step", text: "T" }] }),
+    "footer.json": JSON.stringify({ aboutText: "Footer", email: "test@test.com" }),
+    "contact.json": JSON.stringify({ heading: "Contact", subheading: "Sub" }),
+    "privacy.json": JSON.stringify({ heading: "Privacy", sections: [{ title: "S1", content: "C1" }] }),
   };
 
   const mockReadFile = vi.fn().mockImplementation((p: string) => {
@@ -32,7 +36,11 @@ import {
   getFaqs,
   getTestimonials,
   getGalleryImages,
-  getSiteContent,
+  getHeroContent,
+  getAboutContent,
+  getValuesContent,
+  getApproachContent,
+  getProcessContent,
   getFooterContent,
   getContactContent,
   getPrivacyContent,
@@ -40,8 +48,9 @@ import {
 
 describe("content lib — all functions", () => {
   it("getTeamMembers returns members array", () => {
-    expect(getTeamMembers()).toHaveLength(1);
-    expect(getTeamMembers()[0].name).toBe("Test");
+    const team = getTeamMembers();
+    expect(team).toHaveLength(1);
+    expect(team[0].name).toBe("Test");
   });
 
   it("getFaqs returns items array", () => {
@@ -57,31 +66,53 @@ describe("content lib — all functions", () => {
     expect(getGalleryImages()).toHaveLength(1);
   });
 
-  it("getSiteContent returns all sections", () => {
-    const content = getSiteContent();
-    expect(content).toBeTruthy();
-    expect(content?.hero?.heading).toBe("Test");
-    expect(content?.about?.heading).toBe("About");
-    expect(content?.values?.heading).toBe("Values");
-    expect(content?.approach?.heading).toBe("Approach");
-    expect(content?.process?.heading).toBe("Process");
+  it("getHeroContent returns hero data", () => {
+    const hero = getHeroContent();
+    expect(hero).toBeTruthy();
+    expect(hero.heading).toBe("Hero");
+  });
+
+  it("getAboutContent returns about data with paragraphs array", () => {
+    const about = getAboutContent();
+    expect(about).toBeTruthy();
+    expect(about.paragraphs).toHaveLength(2);
+    expect(about.paragraphs[0]).toBe("P1");
+  });
+
+  it("getValuesContent returns values with items", () => {
+    const values = getValuesContent();
+    expect(values).toBeTruthy();
+    expect(values.items).toHaveLength(1);
+  });
+
+  it("getApproachContent returns approach with skills", () => {
+    const approach = getApproachContent();
+    expect(approach).toBeTruthy();
+    expect(approach.skills).toHaveLength(1);
+  });
+
+  it("getProcessContent returns process with steps", () => {
+    const process = getProcessContent();
+    expect(process).toBeTruthy();
+    expect(process.steps).toHaveLength(1);
   });
 
   it("getFooterContent returns footer data", () => {
     const footer = getFooterContent();
     expect(footer).toBeTruthy();
-    expect(footer?.aboutText).toBe("Footer");
+    expect(footer.aboutText).toBe("Footer");
   });
 
   it("getContactContent returns contact data", () => {
     const contact = getContactContent();
     expect(contact).toBeTruthy();
-    expect(contact?.heading).toBe("Contact");
+    expect(contact.heading).toBe("Contact");
   });
 
-  it("getPrivacyContent returns privacy data", () => {
+  it("getPrivacyContent returns privacy data with sections", () => {
     const privacy = getPrivacyContent();
     expect(privacy).toBeTruthy();
-    expect(privacy?.heading).toBe("Privacy");
+    expect(privacy.sections).toHaveLength(1);
+    expect(privacy.sections[0].title).toBe("S1");
   });
 });

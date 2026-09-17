@@ -1,0 +1,26 @@
+{
+  "heading": "What guides us.",
+  "intro": "At Mindscaping, we believe that mental health is not a standalone experience but a deeply integrated part of a person's entire psychological and social world.",
+  "items": [
+    {
+      "num": "01",
+      "title": "Evidence-Based Clinical Care",
+      "text": "We rely on proven, scientifically-backed therapeutic modalities such as Cognitive Behavioral Therapy (CBT) and Dialectical Behavior Therapy (DBT). Every treatment plan is grounded in clinical assessments to ensure our interventions are effective, structured, and goal-oriented."
+    },
+    {
+      "num": "02",
+      "title": "Holistic Psychological Integration",
+      "text": "While our focus is psychological, we view the individual as a whole. We look at the interplay between a client's emotional state, cognitive patterns, and their environment. We don't just treat symptoms; we work to understand the underlying narratives and social contexts."
+    },
+    {
+      "num": "03",
+      "title": "Ecosystemic Growth",
+      "text": "We believe that healing happens best in supportive environments. Our mission extends beyond the therapy room to building and sustaining mental health ecosystems within educational institutes, colleges, and corporate organizations — fostering resilience at the institutional level."
+    },
+    {
+      "num": "04",
+      "title": "Inclusive & Affirming Spaces",
+      "text": "Our values are rooted in safety, authenticity, and clinical rigour. We are dedicated to providing evidence-based, client-centered care that is neurodivergent and queer-affirming — ensuring that individuals from all walks of life feel seen, respected, and supported in their unique identities."
+    }
+  ]
+}

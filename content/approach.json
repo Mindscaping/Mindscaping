@@ -1,0 +1,29 @@
+{
+  "heading": "Where play meets clinical rigour.",
+  "description": "At Mindscaping, we go beyond traditional talk therapy by using games like Azul and Splendor, alongside structured art like Mandalas, as functional \"micro-labs\". Whether in person or via interactive screen-sharing, you aren't just discussing skills like strategy and patience — you are living them in real-time.",
+  "description2": "By combining evidence-based modalities with these tactile, creative tools, we help you bridge the gap between the therapy room and your daily life.",
+  "quote": "In a game of Splendor or Azul, you aren't just discussing strategy — you are living it.",
+  "ctaText": "Get in touch to learn more",
+  "skills": [
+    {
+      "icon": "🧩",
+      "title": "Cognitive Agility",
+      "text": "Strengthen working memory and executive functioning through strategic resource management in games and puzzles."
+    },
+    {
+      "icon": "🎯",
+      "title": "Emotional Regulation",
+      "text": "Practice navigating \"unlucky\" shifts in Azul, Uno or even Snakes and Ladders with grace and humor."
+    },
+    {
+      "icon": "🌀",
+      "title": "Sensory Mindfulness",
+      "text": "Use Mandalas as repetitive, \"contained\" spaces to anchor focus, reduce anxiety, and quiet mental noise."
+    },
+    {
+      "icon": "💻",
+      "title": "Online Integration",
+      "text": "Digital sessions using virtual boards and screen-sharing ensure the same high-quality care as our in-person work."
+    }
+  ]
+}

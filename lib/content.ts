@@ -8,6 +8,16 @@ function readJSON(file: string) {
   return JSON.parse(fs.readFileSync(path.join(contentDir, file), "utf-8"));
 }
 
+function tryJSON(file: string) {
+  try {
+    return readJSON(file);
+  } catch {
+    return null;
+  }
+}
+
+// ── Content collections ──
+
 export function getTeamMembers() {
   const data = readJSON("team.json");
   return data.members || data;
@@ -28,39 +38,44 @@ export function getGalleryImages() {
   return data.images || data;
 }
 
-export function getSiteContent() {
-  try {
-    return readJSON("site-content.json");
-  } catch {
-    return null;
-  }
+// ── Homepage sections ──
+
+export function getHeroContent() {
+  return tryJSON("hero.json");
 }
 
+export function getAboutContent() {
+  return tryJSON("about.json");
+}
+
+export function getValuesContent() {
+  return tryJSON("values.json");
+}
+
+export function getApproachContent() {
+  return tryJSON("approach.json");
+}
+
+export function getProcessContent() {
+  return tryJSON("process.json");
+}
+
+// ── Page content ──
+
 export function getFooterContent() {
-  try {
-    return readJSON("site-footer.json");
-  } catch {
-    return null;
-  }
+  return tryJSON("footer.json");
 }
 
 export function getContactContent() {
-  try {
-    return readJSON("site-contact.json");
-  } catch {
-    return null;
-  }
+  return tryJSON("contact.json");
 }
 
 export function getPrivacyContent() {
-  try {
-    return readJSON("site-privacy.json");
-  } catch {
-    return null;
-  }
+  return tryJSON("privacy.json");
 }
 
 // ── Blog posts ──
+
 export function getPosts() {
   const dir = path.join(contentDir, "blog");
   if (!fs.existsSync(dir)) return [];

@@ -1,0 +1,23 @@
+{
+  "heading": "Your journey, step by step.",
+  "steps": [
+    {
+      "num": "01",
+      "icon": "📋",
+      "title": "Consent & Intake",
+      "text": "Once you reach out, a consent form is sent directly to your email. This helps us understand your needs, ensures transparency, and establishes a foundation of trust before your first session."
+    },
+    {
+      "num": "02",
+      "icon": "✅",
+      "title": "Booking Confirmation",
+      "text": "After reviewing and returning your consent form, we confirm your booking. This secures your slot and allows us to prepare for your session in advance."
+    },
+    {
+      "num": "03",
+      "icon": "🌿",
+      "title": "Your Session",
+      "text": "You are all set. Your session is scheduled with your counselor at a time that works for you — a dedicated, confidential space where your healing journey truly begins."
+    }
+  ]
+}
