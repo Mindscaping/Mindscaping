@@ -2,10 +2,25 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { saveBooking, validateBooking, type BookingFormData } from "@/lib/booking";
 import { publishEvent } from "@/lib/events";
+import { requireAuth } from "@/lib/auth";
+import { generateToken, verifyToken } from "@/lib/csrf";
 
 export async function GET(req: NextRequest) {
+  const user = await requireAuth();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(req.url);
   const email = searchParams.get("email");
+
+  if (user.role === "patient") {
+    const bookings = await prisma.booking.findMany({
+      where: { email: user.email },
+      orderBy: { createdAt: "desc" },
+    });
+    return NextResponse.json({ bookings });
+  }
 
   const where = email ? { email } : {};
   const bookings = await prisma.booking.findMany({
@@ -16,11 +31,24 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ bookings });
 }
 
-export async function PATCH(request: Request) {
+export async function PATCH(request: NextRequest) {
+  if (!(await verifyToken(request))) {
+    return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+  }
+  const user = await requireAuth("clinician");
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { id, status } = await request.json();
     if (!id || !status) {
       return NextResponse.json({ error: "Missing id or status" }, { status: 400 });
+    }
+
+    const allowedStatuses = ["pending", "confirmed", "cancelled"];
+    if (!allowedStatuses.includes(status)) {
+      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
 
     const booking = await prisma.booking.update({
@@ -34,7 +62,10 @@ export async function PATCH(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  if (!(await verifyToken(request))) {
+    return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+  }
   try {
     const body: BookingFormData = await request.json();
     const errors = validateBooking(body);

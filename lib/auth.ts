@@ -3,7 +3,11 @@ import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { prisma } from "./db";
 
-const secret = new TextEncoder().encode(process.env.AUTH_SECRET || "dev-secret");
+const authSecret = process.env.AUTH_SECRET;
+if (!authSecret) {
+  throw new Error("AUTH_SECRET environment variable is required");
+}
+const secret = new TextEncoder().encode(authSecret);
 
 export interface SessionUser {
   id: string;

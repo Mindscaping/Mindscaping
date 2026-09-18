@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
+import { generateToken, verifyToken } from "@/lib/csrf";
 
 // GET /api/messages - list conversations
 export async function GET(req: NextRequest) {
@@ -77,6 +78,9 @@ export async function GET(req: NextRequest) {
 
 // POST /api/messages - send a message
 export async function POST(req: NextRequest) {
+  if (!(await verifyToken(req))) {
+    return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+  }
   const user = await requireAuth();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

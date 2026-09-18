@@ -3,18 +3,14 @@ services:
     build: .
     ports:
       - "3004:3000"
-      - "8081:8081"
     env_file:
       - .env
     environment:
       - DATABASE_URL=file:/app/data/prod.db
-      - NODE_ENV=development
+      - NODE_ENV=production
     volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/.next
       - db-data:/app/data
-    command: sh -c "npx prisma generate && npx prisma db push --skip-generate && PORT=8081 npx decap-server & npx next dev --port 3000"
+    command: sh -c "npx prisma generate && npx prisma db push --skip-generate && node node_modules/.bin/next start"
 
 volumes:
   db-data:

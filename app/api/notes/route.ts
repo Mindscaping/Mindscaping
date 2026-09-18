@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
+import { generateToken, verifyToken } from "@/lib/csrf";
 
 // GET /api/notes - list notes
 export async function GET(req: NextRequest) {
@@ -33,6 +34,9 @@ export async function GET(req: NextRequest) {
 
 // POST /api/notes - create a note (clinician only)
 export async function POST(req: NextRequest) {
+  if (!(await verifyToken(req))) {
+    return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+  }
   const user = await requireAuth("clinician");
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -56,6 +60,9 @@ export async function POST(req: NextRequest) {
 
 // PUT /api/notes - update a note
 export async function PUT(req: NextRequest) {
+  if (!(await verifyToken(req))) {
+    return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+  }
   const user = await requireAuth("clinician");
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

@@ -13,9 +13,9 @@ const FILE_TO_PATHS: Record<string, string[]> = {
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
-  const secret = body.secret || req.nextUrl.searchParams.get("secret");
+  const secret = body.secret;
 
-  if (secret !== process.env.REVALIDATION_SECRET) {
+  if (!secret || secret !== process.env.REVALIDATION_SECRET) {
     return NextResponse.json({ error: "invalid secret" }, { status: 401 });
   }
 

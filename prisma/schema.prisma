@@ -23,6 +23,9 @@ model User {
   sentMessages        Message[] @relation("SentMessages")
   receivedMessages    Message[] @relation("ReceivedMessages")
   payments            Payment[]
+
+  @@index([email])
+  @@index([role])
 }
 
 model Session {
@@ -38,6 +41,10 @@ model Session {
   patient   User      @relation("PatientSessions", fields: [patientId], references: [id])
   notes     Note[]
   payment   Payment?
+
+  @@index([patientId])
+  @@index([clinicianId])
+  @@index([date])
 }
 
 model Booking {
@@ -67,6 +74,8 @@ model Note {
   session   Session? @relation(fields: [sessionId], references: [id])
   clinician User     @relation("ClinicianNotes", fields: [clinicianId], references: [id])
   patient   User     @relation("PatientNotes", fields: [patientId], references: [id])
+
+  @@index([patientId])
 }
 
 model Message {
@@ -79,6 +88,9 @@ model Message {
 
   sender   User @relation("SentMessages", fields: [senderId], references: [id])
   receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id])
+
+  @@index([senderId])
+  @@index([receiverId])
 }
 
 model Payment {
@@ -94,4 +106,6 @@ model Payment {
 
   patient User    @relation(fields: [patientId], references: [id])
   session Session @relation(fields: [sessionId], references: [id])
+
+  @@index([sessionId])
 }

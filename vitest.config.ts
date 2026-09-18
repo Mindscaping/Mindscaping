@@ -13,6 +13,9 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./test/setup.ts"],
+    env: {
+      AUTH_SECRET: "test-secret-for-testing-only",
+    },
     coverage: {
       provider: "v8",
       reporter: ["text", "text-summary"],
