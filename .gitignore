@@ -43,6 +43,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# opencode
+.opencode/
+
 # one-time scripts
 /scripts/
 
