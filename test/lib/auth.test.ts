@@ -94,6 +94,7 @@ describe("auth lib", () => {
   it("requireAuth returns user when role matches", async () => {
     vi.mocked(cookies).mockResolvedValue({ get: () => ({ value: "tok" }) } as any);
     vi.mocked(jwtVerify).mockResolvedValue({ payload: { id: "1", role: "clinician" } } as any);
+    vi.mocked(prisma.user.findUnique).mockResolvedValue({ id: "1", role: "clinician" } as any);
     const result = await requireAuth("clinician");
     expect(result).toEqual({ id: "1", role: "clinician" });
   });
@@ -101,8 +102,42 @@ describe("auth lib", () => {
   it("requireAuth returns user without role check", async () => {
     vi.mocked(cookies).mockResolvedValue({ get: () => ({ value: "tok" }) } as any);
     vi.mocked(jwtVerify).mockResolvedValue({ payload: { id: "1", role: "patient" } } as any);
+    vi.mocked(prisma.user.findUnique).mockResolvedValue({ id: "1", role: "patient" } as any);
     const result = await requireAuth();
     expect(result).toEqual({ id: "1", role: "patient" });
+  });
+
+  it("requireAuth('clinician') returns null when user was deleted (no DB row)", async () => {
+    vi.mocked(cookies).mockResolvedValue({ get: () => ({ value: "tok" }) } as any);
+    vi.mocked(jwtVerify).mockResolvedValue({ payload: { id: "1", role: "clinician" } } as any);
+    vi.mocked(prisma.user.findUnique).mockResolvedValue(null);
+    const result = await requireAuth("clinician");
+    expect(result).toBeNull();
+  });
+
+  it("requireAuth('clinician') returns null when DB row role was demoted to 'patient'", async () => {
+    vi.mocked(cookies).mockResolvedValue({ get: () => ({ value: "tok" }) } as any);
+    vi.mocked(jwtVerify).mockResolvedValue({ payload: { id: "1", role: "clinician" } } as any);
+    vi.mocked(prisma.user.findUnique).mockResolvedValue({ id: "1", role: "patient" } as any);
+    const result = await requireAuth("clinician");
+    expect(result).toBeNull();
+  });
+
+  it("requireAuth('clinician') returns user when DB row exists with matching role", async () => {
+    vi.mocked(cookies).mockResolvedValue({ get: () => ({ value: "tok" }) } as any);
+    vi.mocked(jwtVerify).mockResolvedValue({ payload: { id: "1", role: "clinician" } } as any);
+    vi.mocked(prisma.user.findUnique).mockResolvedValue({ id: "1", role: "clinician" } as any);
+    const result = await requireAuth("clinician");
+    expect(result).toEqual({ id: "1", role: "clinician" });
+    expect(prisma.user.findUnique).toHaveBeenCalledWith({ where: { id: "1" } });
+  });
+
+  it("requireAuth() with no requiredRole returns null for missing DB row", async () => {
+    vi.mocked(cookies).mockResolvedValue({ get: () => ({ value: "tok" }) } as any);
+    vi.mocked(jwtVerify).mockResolvedValue({ payload: { id: "1", role: "patient" } } as any);
+    vi.mocked(prisma.user.findUnique).mockResolvedValue(null);
+    const result = await requireAuth();
+    expect(result).toBeNull();
   });
 
   it("getUserFromDB queries prisma for user", async () => {
