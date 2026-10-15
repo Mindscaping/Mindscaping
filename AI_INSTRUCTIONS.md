@@ -79,13 +79,9 @@ Never fetch data in client components. Always load at the page level.
 
 ## Testing
 
-- **Framework:** Vitest + React Testing Library
-- **Config:** `vitest.config.ts`
-- **Setup:** `test/setup.ts`
-- **Coverage:** v8 provider, 95% threshold on all metrics
-- **Scope:** `components/**/*.tsx`, `hooks/**/*.ts`, `lib/**/*.ts`
+See `AGENTS.md` for the mandatory TDD workflow, test conventions, and per-type testing strategies.
 
-### Running Tests
+### Quick Reference
 
 ```bash
 npm test              # Single run
@@ -95,16 +91,18 @@ npm run test:coverage # With coverage report
 
 ### Test File Locations
 
-- `test/lib/content.test.ts` — content loading (mocks fs)
-- `test/hooks/useReveal.test.tsx` — IntersectionObserver hook
+- `test/lib/*.test.ts` — lib function tests
+- `test/hooks/*.test.tsx` — hook tests
 - `test/components/*.test.tsx` — component rendering and behavior
+- `test/app/*.test.tsx` — API route and page tests
+- `test/accessibility/*.test.tsx` — axe-core accessibility scans
 
-### Writing Tests
+### Key Patterns
 
-- Mock `next/image` and `next/link` in component tests
-- Mock `IntersectionObserver` as a class (not a function) in `beforeEach`
-- Use `fireEvent` from `@testing-library/react` for click interactions
-- Use `vi.useFakeTimers()` when testing `useReveal` (it uses `setTimeout`)
+- Mock `next/image` and `next/link` in all component tests
+- Mock `IntersectionObserver` as a class in `beforeEach`
+- Use `vi.useFakeTimers()` for hooks with `setTimeout`
+- Mocks go at top of file, imports come after
 
 ## Known Limitations
 
