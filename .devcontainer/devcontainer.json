@@ -1,0 +1,10 @@
+{
+  "name": "Mindscaping",
+  "forwardPorts": [3456],
+  "portsAttributes": {
+    "3456": {
+      "label": "Next.js Dev Server",
+      "onAutoForward": "notify"
+    }
+  }
+}

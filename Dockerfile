@@ -6,7 +6,9 @@ COPY package.json package-lock.json ./
 COPY prisma ./prisma/
 RUN npm ci --legacy-peer-deps
 ARG DATABASE_URL="file:./dev.db"
+ARG AUTH_SECRET="build-placeholder"
 ENV DATABASE_URL=$DATABASE_URL
+ENV AUTH_SECRET=$AUTH_SECRET
 COPY . .
 RUN npx prisma generate
 RUN npm run build
