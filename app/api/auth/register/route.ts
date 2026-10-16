@@ -7,7 +7,7 @@ import { generateToken } from "@/lib/csrf";
 export async function POST(req: NextRequest) {
   const csrfToken = await generateToken();
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-  const { allowed, retryAfterMs } = checkRateLimit(`register:${ip}`, 3, 60_000);
+  const { allowed, retryAfterMs } = checkRateLimit(`register:${ip}`, 20, 60_000);
   if (!allowed) {
     return NextResponse.json(
       { error: "Too many attempts. Try again later." },

@@ -12,6 +12,11 @@ export async function GET(req: NextRequest) {
   const patientId = searchParams.get("patientId");
   const type = searchParams.get("type"); // "session" | "patient"
 
+  // IDOR guard: only clinicians may filter by patientId; patients are locked to their own scope
+  if (patientId && user.role !== "clinician") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const where: Record<string, unknown> = user.role === "clinician"
     ? { clinicianId: user.id }
     : { patientId: user.id };

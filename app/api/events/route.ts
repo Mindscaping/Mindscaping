@@ -1,8 +1,13 @@
 import { subscribe, getRecentEvents, type AppEvent } from "@/lib/events";
+import { requireAuth } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const user = await requireAuth();
+  if (!user || user.role !== "clinician") {
+    return new Response("Unauthorized", { status: 401 });
+  }
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({

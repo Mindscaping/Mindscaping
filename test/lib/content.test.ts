@@ -144,6 +144,36 @@ describe("lib/content", () => {
       expect(result.content).toBe("Hello world");
       expect(result.slug).toBe("test-post");
     });
+
+    it("reads the resolved path inside the blog directory for a valid slug", async () => {
+      existsSync.mockReturnValue(true);
+      readFileSync.mockReturnValue(`---\ntitle: Test Post\n---\nHello world`);
+
+      const { getPost } = await import("@/lib/content");
+      getPost("test-post");
+
+      const resolved = path.join(contentDir, "blog", "test-post.md");
+      expect(existsSync).toHaveBeenCalledWith(resolved);
+      expect(readFileSync).toHaveBeenCalledWith(resolved, "utf-8");
+    });
+
+    it.each([
+      ["../../etc/passwd", "path traversal"],
+      ["..%2f..%2fREADME", "encoded path traversal"],
+      ["UPPER", "uppercase slug"],
+      ["../NESTED", "traversal with uppercase dir"],
+    ] as const)(
+      "returns null for %s (%s) without touching fs",
+      async (slug) => {
+        existsSync.mockReturnValue(true);
+        readFileSync.mockReturnValue("should never be read");
+
+        const { getPost } = await import("@/lib/content");
+        expect(getPost(slug)).toBeNull();
+        expect(existsSync).not.toHaveBeenCalled();
+        expect(readFileSync).not.toHaveBeenCalled();
+      },
+    );
   });
 
   describe("getAllSlugs", () => {

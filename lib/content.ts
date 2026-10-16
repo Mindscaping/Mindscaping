@@ -100,9 +100,12 @@ export function getPosts() {
 }
 
 export function getPost(slug: string) {
-  const file = path.join(contentDir, "blog", `${slug}.md`);
-  if (!fs.existsSync(file)) return null;
-  const raw = fs.readFileSync(file, "utf-8");
+  if (!/^[a-z0-9-]+$/.test(slug)) return null;
+  const resolved = path.resolve(contentDir, "blog", `${slug}.md`);
+  const blogDir = path.resolve(contentDir, "blog");
+  if (!resolved.startsWith(blogDir + path.sep)) return null;
+  if (!fs.existsSync(resolved)) return null;
+  const raw = fs.readFileSync(resolved, "utf-8");
   const { data, content } = matter(raw);
   return { ...data, slug, content };
 }
