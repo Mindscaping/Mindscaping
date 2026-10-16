@@ -43,9 +43,17 @@ yarn-error.log*
 # vercel
 .vercel
 
+# opencode
+.opencode/
+
 # one-time scripts
 /scripts/
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# agent/tooling artifacts
+.logs/
+test-results/
+.vitest/
