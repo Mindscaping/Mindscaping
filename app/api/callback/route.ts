@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
+import { pinnedOrigin } from "@/lib/origin";
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
   if (!code) return htmlError("Missing authorization code");
+
+  const state = req.nextUrl.searchParams.get("state");
+  const cookieState = req.cookies.get("oauth_state")?.value;
+  if (!state || !cookieState || cookieState !== state) {
+    return htmlError("Invalid OAuth state");
+  }
 
   const clientId = process.env.GITHUB_CLIENT_ID;
   const clientSecret = process.env.GITHUB_CLIENT_SECRET;
@@ -22,21 +29,22 @@ export async function GET(req: NextRequest) {
     return htmlError(`GitHub auth failed: ${data.error || "unknown error"}`);
   }
 
-  const token = JSON.stringify({ access_token: data.access_token, token_type: "bearer" });
+  const origin = pinnedOrigin(req);
 
   return new NextResponse(
     `<html><body><script>
       (function() {
         var token = ${JSON.stringify(data.access_token)};
+        var allowedOrigin = ${JSON.stringify(origin)};
         var receiveMessage = function(message) {
           window.opener.postMessage(
             'authorization:github:success:' + JSON.stringify({ token: token }),
-            message.origin
+            allowedOrigin
           );
           window.removeEventListener("message", receiveMessage, false);
         };
         window.addEventListener("message", receiveMessage, false);
-        window.opener.postMessage("authorizing:github", "*");
+        window.opener.postMessage("authorizing:github", allowedOrigin);
       })();
     </script></body></html>`,
     { headers: { "Content-Type": "text/html; charset=utf-8" } },

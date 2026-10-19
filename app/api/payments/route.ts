@@ -3,13 +3,17 @@ import { prisma } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
 import { createOrder } from "@/lib/razorpay";
 
+// Server-side price in paise (₹500). The client never decides the amount.
+// Split into a per-session-type table when pricing diverges.
+const SESSION_PRICE_PAISE = 50000;
+
 // POST /api/payments - create a Razorpay order
 export async function POST(req: NextRequest) {
   const user = await requireAuth("patient");
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { sessionId, amount } = await req.json();
-  if (!sessionId || !amount) {
+  const { sessionId } = await req.json();
+  if (!sessionId) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
@@ -26,14 +30,14 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const order = await createOrder(amount, sessionId);
+    const order = await createOrder(SESSION_PRICE_PAISE, sessionId);
 
     const payment = await prisma.payment.create({
       data: {
         patientId: user.id,
         sessionId,
         razorpayOrderId: order.id,
-        amount,
+        amount: SESSION_PRICE_PAISE,
       },
     });
 

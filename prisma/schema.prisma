@@ -97,7 +97,7 @@ model Payment {
   id                String   @id @default(cuid())
   patientId         String
   sessionId         String   @unique
-  razorpayOrderId   String
+  razorpayOrderId   String   @unique
   razorpayPaymentId String?
   amount            Int      // in paise
   currency          String   @default("INR")

@@ -9,14 +9,24 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+interface PostFields {
+  title?: string;
+  excerpt?: string;
+  author?: string;
+  publishedAt?: string;
+  featuredImage?: string;
+  content?: string;
+}
+
 export async function generateStaticParams() {
   const posts = getPosts();
-  return posts.filter((p: any) => p.slug).map((p: any) => ({ slug: p.slug }));
+  return posts.filter((p) => p.slug).map((p) => ({ slug: p.slug as string }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug) as any;
+  if (!/^[a-z0-9-]+$/.test(slug)) return notFound();
+  const post = getPost(slug) as PostFields | null;
   if (!post) return { title: "Post Not Found" };
 
   return {
@@ -32,7 +42,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getPost(slug) as any;
+  if (!/^[a-z0-9-]+$/.test(slug)) return notFound();
+  const post = getPost(slug) as PostFields | null;
   if (!post) notFound();
 
   return (
@@ -65,7 +76,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="relative aspect-[16/9] rounded-xl overflow-hidden mb-10">
           <Image
             src={post.featuredImage}
-            alt={post.title}
+            alt={post.title || "Blog post"}
             fill
             className="object-cover"
             priority

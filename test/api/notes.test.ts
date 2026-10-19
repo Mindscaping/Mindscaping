@@ -85,7 +85,7 @@ describe("GET /api/notes", () => {
     const req = mockRequest({ url: "http://localhost:3004/api/notes?patientId=p1", cookies: { session: "token" } });
     const res = await GET(req);
     expect(res.status).toBe(200);
-    const where = vi.mocked(prisma.note.findMany).mock.calls[0][0].where;
+    const where = vi.mocked(prisma.note.findMany).mock.calls[0]![0]!.where;
     expect(where).toMatchObject({ clinicianId: "c1", patientId: "p1" });
   });
 

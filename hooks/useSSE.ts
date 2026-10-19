@@ -8,6 +8,7 @@ export function useSSE(url = "/api/events") {
   const [connected, setConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
+  const connectRef = useRef<() => void>(() => {});
 
   const connect = useCallback(() => {
     const es = new EventSource(url);
@@ -33,11 +34,12 @@ export function useSSE(url = "/api/events") {
       setError("Connection lost. Reconnecting...");
       es.close();
       // ponytail: reconnect after 3s — exponential backoff if needed later
-      setTimeout(connect, 3000);
+      setTimeout(() => connectRef.current(), 3000);
     };
   }, [url]);
 
   useEffect(() => {
+    connectRef.current = connect;
     connect();
     return () => {
       eventSourceRef.current?.close();

@@ -162,7 +162,7 @@ describe("lib/content", () => {
       ["..%2f..%2fREADME", "encoded path traversal"],
       ["UPPER", "uppercase slug"],
       ["../NESTED", "traversal with uppercase dir"],
-    ] as const)(
+    ])(
       "returns null for %s (%s) without touching fs",
       async (slug) => {
         existsSync.mockReturnValue(true);

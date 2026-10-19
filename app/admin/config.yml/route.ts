@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { pinnedOrigin } from "@/lib/origin";
 
 const CONFIG = `backend:
   name: github
@@ -219,12 +220,7 @@ collections:
       - { name: body, label: Body, widget: markdown }`;
 
 export function GET(req: NextRequest) {
-  const forwardedHost = req.headers.get("x-forwarded-host");
-  const forwardedProto = req.headers.get("x-forwarded-proto");
-  const origin = forwardedHost
-    ? `${forwardedProto || "https"}://${forwardedHost}`
-    : req.nextUrl.origin;
-  const yaml = CONFIG.replace("ORIGIN_PLACEHOLDER", origin);
+  const yaml = CONFIG.replace("ORIGIN_PLACEHOLDER", pinnedOrigin(req));
   return new NextResponse(yaml, {
     headers: { "Content-Type": "text/yaml; charset=utf-8" },
   });

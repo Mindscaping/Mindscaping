@@ -24,6 +24,7 @@ vi.mock("@/lib/csrf", () => ({
 
 vi.mock("@/lib/rate-limit", () => ({
   checkRateLimit: vi.fn().mockReturnValue({ allowed: true, retryAfterMs: 0 }),
+  getClientIp: vi.fn().mockReturnValue("127.0.0.1"),
 }));
 
 import { POST as registerPOST } from "@/app/api/auth/register/route";

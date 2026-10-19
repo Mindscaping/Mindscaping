@@ -51,8 +51,12 @@ export async function getSession(): Promise<SessionUser | null> {
 export async function requireAuth(requiredRole?: "clinician" | "patient") {
   const user = await getSession();
   if (!user) return null;
-  if (requiredRole && user.role !== requiredRole) return null;
-  return user;
+  // Re-check the DB row so deleted or demoted users lose access immediately,
+  // not when their 7-day token expires.
+  const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
+  if (!dbUser) return null;
+  if (requiredRole && dbUser.role !== requiredRole) return null;
+  return dbUser as unknown as SessionUser;
 }
 
 export async function getUserFromDB(email: string) {
