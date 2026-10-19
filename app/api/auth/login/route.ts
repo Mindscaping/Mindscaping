@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { verifyPassword, createToken } from "@/lib/auth";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { generateToken } from "@/lib/csrf";
 
 export async function POST(req: NextRequest) {
   const csrfToken = await generateToken();
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const ip = getClientIp(req);
   const { allowed, retryAfterMs } = checkRateLimit(`login:${ip}`, 5, 60_000);
   if (!allowed) {
     return NextResponse.json(

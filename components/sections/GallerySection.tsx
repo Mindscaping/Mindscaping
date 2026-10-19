@@ -32,7 +32,12 @@ export default function GallerySection({ images }: Props) {
                 const d = document.createElement("dialog");
                 d.className = "fixed inset-0 bg-black/88 z-[9999] flex items-center justify-center w-full h-full border-0 cursor-zoom-out";
                 d.onclick = () => d.close();
-                d.innerHTML = `<img src="${img.src}" alt="${img.caption || "Gallery"}" class="max-w-[85vw] max-h-[85vh] rounded-xl shadow-2xl cursor-default" onclick="event.stopPropagation()" />`;
+                const lightboxImg = document.createElement("img");
+                lightboxImg.setAttribute("src", img.src);
+                lightboxImg.setAttribute("alt", img.caption || "Gallery");
+                lightboxImg.className = "max-w-[85vw] max-h-[85vh] rounded-xl shadow-2xl cursor-default";
+                lightboxImg.addEventListener("click", (e) => e.stopPropagation());
+                d.appendChild(lightboxImg);
                 document.body.appendChild(d);
                 d.showModal();
                 d.onclose = () => d.remove();

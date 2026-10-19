@@ -21,16 +21,25 @@ export function middleware(req: NextRequest) {
   const authHeader = req.headers.get("authorization");
 
   if (authHeader && authHeader.startsWith("Basic ")) {
-    const decoded = atob(authHeader.split(" ")[1] || "");
-    const [user, pass] = decoded.split(":");
+    let decoded = "";
+    try {
+      decoded = atob(authHeader.split(" ")[1] || "");
+    } catch {
+      decoded = ""; // malformed base64 → treated as failed auth (401)
+    }
+    const idx = decoded.indexOf(":");
+    if (idx !== -1) {
+      const user = decoded.slice(0, idx);
+      const pass = decoded.slice(idx + 1);
 
-    if (
-      user &&
-      pass &&
-      timingSafeCompare(user, expectedUser) &&
-      timingSafeCompare(pass, expectedPass)
-    ) {
-      return NextResponse.next();
+      if (
+        user &&
+        pass &&
+        timingSafeCompare(user, expectedUser) &&
+        timingSafeCompare(pass, expectedPass)
+      ) {
+        return NextResponse.next();
+      }
     }
   }
 

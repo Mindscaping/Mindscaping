@@ -12,6 +12,8 @@ function verifyRazorpaySignature(
     .createHmac("sha256", secret)
     .update(body)
     .digest("hex");
+  // Length guard: timingSafeEqual throws on mismatched lengths
+  if (signature.length !== expectedSignature.length) return false;
   return crypto.timingSafeEqual(
     Buffer.from(expectedSignature),
     Buffer.from(signature)
@@ -41,12 +43,15 @@ export async function POST(req: NextRequest) {
 
   const { order_id: razorpay_order_id, id: razorpay_payment_id } = payload;
 
-  if (event === "payment.captured" || event === "payment.authorized") {
+  if (event === "payment.captured") {
+    // The webhook amount must match what we charged; never trust the event alone.
+    const payment = await prisma.payment.findUnique({ where: { razorpayOrderId: razorpay_order_id } });
+    const amountMatches = payment != null && payload.amount === payment.amount;
     await prisma.payment.updateMany({
       where: { razorpayOrderId: razorpay_order_id },
       data: {
         razorpayPaymentId: razorpay_payment_id,
-        status: "captured",
+        status: amountMatches ? "captured" : "failed",
       },
     });
   } else if (event === "payment.failed") {

@@ -89,6 +89,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
+  if (receiverId === user.id) {
+    return NextResponse.json({ error: "Cannot message yourself" }, { status: 400 });
+  }
+
+  const receiver = await prisma.user.findUnique({
+    where: { id: receiverId },
+    select: { id: true, role: true },
+  });
+  if (!receiver) {
+    return NextResponse.json({ error: "Receiver not found" }, { status: 404 });
+  }
+
+  // Clinician↔patient messaging only; patients need an existing care relationship
+  if (user.role === "patient" && receiver.role === "patient") {
+    return NextResponse.json({ error: "Patients can only message clinicians" }, { status: 403 });
+  }
+  if (user.role === "patient" && receiver.role === "clinician") {
+    const related = await prisma.session.findFirst({
+      where: { clinicianId: receiver.id, patientId: user.id },
+      select: { id: true },
+    });
+    if (!related) {
+      return NextResponse.json({ error: "No care relationship with this clinician" }, { status: 403 });
+    }
+  }
+
   const message = await prisma.message.create({
     data: {
       senderId: user.id,
