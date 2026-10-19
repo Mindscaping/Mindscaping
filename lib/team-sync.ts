@@ -23,7 +23,12 @@ export function getTeamData(): CMSMember[] {
   }
 }
 
-export async function getMergedTeamData(): Promise<CMSMember[]> {
+export interface MergedMember extends CMSMember {
+  hasAccount: boolean;
+  clinicianId: string | null;
+}
+
+export async function getMergedTeamData(): Promise<MergedMember[]> {
   const cmsMembers = getTeamData();
   const clinicians = await prisma.user.findMany({
     where: { role: "clinician" },

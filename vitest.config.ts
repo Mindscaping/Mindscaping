@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig, configDefaults } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
@@ -13,6 +13,7 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./test/setup.ts"],
+    exclude: ["tests/**/*.spec.ts", ...configDefaults.exclude],
     env: {
       AUTH_SECRET: "test-secret-for-testing-only",
     },
