@@ -279,6 +279,29 @@ describe("GallerySection lightbox", () => {
     dialog?.remove();
   });
 
+  it("stores CMS src/caption as raw attribute values, never as markup (stored XSS)", () => {
+    HTMLDialogElement.prototype.showModal = vi.fn();
+    HTMLDialogElement.prototype.close = vi.fn();
+
+    const evil = { src: 'x" onerror="window.__pwned=1', caption: 'y" onerror="window.__pwned=2' };
+    render(<GallerySection images={[evil]} />);
+    const tile = document.querySelector("div[class*='cursor-zoom-in']");
+    fireEvent.click(tile!);
+    const dialog = document.querySelector("dialog") as HTMLDialogElement;
+    expect(dialog).toBeInTheDocument();
+
+    const lightboxImg = dialog.querySelector("img") as HTMLImageElement;
+    expect(lightboxImg).toBeInTheDocument();
+    // Attribute assignment stores the value as-is; markup injection would not.
+    expect(lightboxImg.getAttribute("src")).toBe(evil.src);
+    expect(lightboxImg.getAttribute("alt")).toBe(evil.caption);
+    // No element anywhere in the dialog may carry an onerror attribute.
+    expect(dialog.querySelectorAll("[onerror]").length).toBe(0);
+    // Nothing executed.
+    expect((window as unknown as { __pwned?: number }).__pwned).toBeUndefined();
+    dialog.remove();
+  });
+
   it("closes lightbox on backdrop click", () => {
     HTMLDialogElement.prototype.showModal = vi.fn();
     HTMLDialogElement.prototype.close = vi.fn();

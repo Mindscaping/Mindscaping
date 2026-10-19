@@ -13,7 +13,11 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./test/setup.ts"],
+<<<<<<< HEAD
     exclude: ["tests/**/*.spec.ts", ...configDefaults.exclude],
+=======
+    exclude: ["tests/**/*.spec.ts"],
+>>>>>>> origin/develop
     env: {
       AUTH_SECRET: "test-secret-for-testing-only",
     },
@@ -26,7 +30,7 @@ export default defineConfig({
         lines: 95,
         statements: 95,
       },
-      include: ["components/**/*.tsx", "hooks/**/*.ts", "lib/**/*.ts"],
+      include: ["components/**/*.tsx", "hooks/**/*.ts", "lib/**/*.ts", "app/api/**/*.ts", "middleware.ts"],
       exclude: ["components/sections/Hero.tsx"],
     },
   },
