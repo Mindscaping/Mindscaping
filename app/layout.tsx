@@ -4,7 +4,6 @@ import "@/styles/globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import { Analytics } from "@vercel/analytics/next";
-import LiveNotifications from "@/components/sections/LiveNotifications";
 import { getFooterContent } from "@/lib/content";
 
 const cormorant = Cormorant_Garamond({
@@ -47,7 +46,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Nav />
         <main>{children}</main>
         <Footer content={footerContent} />
-        <LiveNotifications />
         <Analytics />
       </body>
     </html>
